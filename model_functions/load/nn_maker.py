@@ -6,7 +6,7 @@ from sklearn.preprocessing import StandardScaler, OneHotEncoder
 import tensorflow as tf
 from tensorflow.keras.callbacks import ModelCheckpoint
 
-def run_model (data, target, drop = [], thresholds = [],
+def run_nn_model (data, target, drop = [], thresholds = [],
         input_node = { 'units': 80, 'activation': 'relu' },
         hidden_nodes = [{ 'units': 30, 'activation': 'relu' }],
         output_node = { 'units': 1, 'activation': 'sigmoid' },
