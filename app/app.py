@@ -1,7 +1,36 @@
-from flask import Flask
+from flask import Flask, render_template
+from joblib import load
+import pandas as pd
+import numpy as np
+import plotly.express as px
+import plotly.graph_objects as go
 
 app = Flask(__name__)
 
-@app.route("/")
+
+@app.route("/", methods = ['GET','POST'])
+def test_template():
+    return render_template('index.html')
+
+@app.route("/Site")
+
+
+
+@app.route("/test_model")
+def test_model():
+    test_np_input = np.array([[1],[2],[17]])
+    model = load('test_model.joblib')
+    preds = model.predict(test_np_input)
+    preds_str = str(preds)
+    return preds_str
+
+
+@app.route("/hello_world")
 def hello_world():
-    return "<p>Hello, World!</p>"
+    return "Hello, World!"
+
+
+
+
+if __name__=='__main__':
+    app.run(debug=True)    
