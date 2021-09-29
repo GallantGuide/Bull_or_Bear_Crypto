@@ -4,6 +4,8 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
+import functions
+import uuid
 
 app = Flask(__name__)
 
@@ -15,10 +17,13 @@ def test_template():
         return render_template('index.html', href='static/Base_image.svg')
     if request_type == 'POST':
         text = request.form['text']
-        path = 'static/Data_meme.jfif'
+        random_string = uuid.uuid4().hex
+        file = 'static/AgesAndHeights.pkl'
+        model = load('test_model.joblib')
+        user_input = functions.user_input_np_arr(text)
+        path = 'static/' + random_string + '.svg'
+        functions.make_picture(file, model, user_input, path)
         return render_template('index.html', href=path)
-
-
 
 
 @app.route("/Site")
