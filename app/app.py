@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from joblib import load
 import pandas as pd
 import numpy as np
@@ -10,7 +10,12 @@ app = Flask(__name__)
 
 @app.route("/", methods = ['GET','POST'])
 def test_template():
-    return render_template('index.html')
+    request_type = request.method
+    if request_type == 'GET':
+        return render_template('index.html', href='static/Base_image.svg')
+    if request_type == 'POST':
+        text = request.form['text']
+        return text.upper()
 
 @app.route("/Site")
 
