@@ -15,11 +15,13 @@ def test_template():
         return render_template('index.html', href='static/Base_image.svg')
     if request_type == 'POST':
         text = request.form['text']
-        return text.upper()
+        path = 'static/Data_meme.jfif'
+        return render_template('index.html', href=path)
+
+
+
 
 @app.route("/Site")
-
-
 
 @app.route("/test_model")
 def test_model():
