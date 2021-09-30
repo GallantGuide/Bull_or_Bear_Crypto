@@ -1,5 +1,33 @@
 # Bull_or_Bear_Crypto
 
+<<<<<<< HEAD
 
 # Work Notes:
 The neural network function DOES NOT handle date data.  We'll have to add code to the data processing function for this once we decide how to handle the date data.  For current the test, I am just dropping the date column from the data frame. -- Cristina
+=======
+## Technologies Used
+
+- `Beautiful Soup`
+- `Splinter`
+- `Pandas`
+- `SQL`
+- `Mongo`
+
+### Resources
+
+### Data Cleaning and Analysis
+
+Pandas will be used to clean the data and perform an exploratory analysis. Further analysis will be completed using Python.
+
+### Database Storage
+
+Mongo is the database we intend to use, and we will integrate Flask to display the data.
+
+### Machine Learning
+
+SciKitLearn is the ML library we'll be using to create a classifier. Our training and testing setup is ___. Extra ML verbiage here.
+
+### Dashboard
+
+In addition to using a Flask template, we will also integrate Plotly.js for a fully functioning and interactive dashboard. It will be hosted on ___.
+>>>>>>> flask
