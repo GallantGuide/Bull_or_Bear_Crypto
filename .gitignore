@@ -1,3 +1,15 @@
+<<<<<<< HEAD
+# ignore files/folders added by us
+
+## don't save model checkpoints
+*/*/checkpoints/*
+*/checkpoints/*
+checkpoints/*
+
+
+
+=======
+>>>>>>> flask
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
