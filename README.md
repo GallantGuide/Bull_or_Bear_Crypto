@@ -61,8 +61,11 @@ And finally, we created the instance for the model. The prophet_btc dataframe wa
 | 3355 | 2022-07-06 23:59:59 | 66574.6 |      59226   |      73589.1 |
 
 #### Results: 
+*Price prediction: from July 2021 to July 22*
+![BTC_Prediction](https://github.com/CaptCarmine/Bull_or_Bear_Crypto/blob/ML_Model/Machine_Learning/Resources/BTC_Predictions.png)  
 
-
+*Yearly, monthly, and weekly components*
+![BTC_Components](https://github.com/CaptCarmine/Bull_or_Bear_Crypto/blob/ML_Model/Machine_Learning/Resources/BTC_Components.png)
 
 ### Dashboard
 
