@@ -40,7 +40,7 @@ The goal was to create a machine learning model using facebook's prophet library
 |  3 |     4 | Bitcoin | BTC      | 2013-05-02 23:59:59 | 125.6   |  92.2819 | 116.38  |  105.21 |        0 | 1.16852e+09 |
 |  4 |     5 | Bitcoin | BTC      | 2013-05-03 23:59:59 | 108.128 |  79.1    | 106.25  |   97.75 |        0 | 1.086e+09   |
 
-Moreover, prophet required the data to be preprocessed into a two-column datetime and price dataframe. The preprocessing included filtering the columns that were not going to be used, change the date string to a date data type, and renaming the columns as 'DS' for the date and 'y' for the price. The final product was a dataframe that looked like this one: 
+Moreover, prophet required the data to be preprocessed into a two-column datetime and price dataframe. The preprocessing included filtering the columns that were not going to be used, change the date string to a date data type, and renaming the columns as 'DS' for the date and 'y' for the price. The final product was a dataframe that looked like this `prophet_btc`:
 
  |    | ds                  |      y |
 |---:|:--------------------|-------:|
@@ -50,6 +50,17 @@ Moreover, prophet required the data to be preprocessed into a two-column datetim
 |  3 | 2013-05-02 23:59:59 | 105.21 |
 |  4 | 2013-05-03 23:59:59 |  97.75 |
 
+And finally, we created the instance for the model. The prophet_btc dataframe was used to fit it and we predicted for a period of 365 days. That is to say up to mid 2022. 
+
+ |      | ds                  |    yhat |   yhat_lower |   yhat_upper |
+|-----:|:--------------------|--------:|-------------:|-------------:|
+| 3351 | 2022-07-02 23:59:59 | 66179.6 |      59114.7 |      73165.2 |
+| 3352 | 2022-07-03 23:59:59 | 66245.3 |      58955   |      73208.7 |
+| 3353 | 2022-07-04 23:59:59 | 66349.7 |      59069.1 |      73530.3 |
+| 3354 | 2022-07-05 23:59:59 | 66449.3 |      59646.1 |      74203.6 |
+| 3355 | 2022-07-06 23:59:59 | 66574.6 |      59226   |      73589.1 |
+
+#### Results: 
 
 
 
