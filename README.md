@@ -27,16 +27,16 @@ Cryptocurrencies are of great interest to the finance community right now.  Thei
 - `Mongo`
 - `Python`
   - `Prophet` library
-  - pandas: 1.2.4
-  - requests: 2.25.1
-  - langid: 1.1.6
-  - nltk: 3.6.1
-  - splinter: 0.15.0
-  - bs4: 4.9.3
-  - webdriver_manager: 3.4.1
-  - sklearn: 0.24.1
-  - tensorflow: 2.6.0
-  - os, sys, time
+  - `pandas` 1.2.4
+  - `requests` 2.25.1
+  - `langid` 1.1.6
+  - `nltk` 3.6.1
+  - `splinter` 0.15.0
+  - `bs4` 4.9.3
+  - `webdriver_manager` 3.4.1
+  - `sklearn` 0.24.1
+  - `tensorflow` 2.6.0
+  - `os`, `sys`, `time`
 
 ### Communication Protocols
 All group members belong to a discord server dedicated to this project.  There are text channels dedicated to all aspects of the project (e.g. machine-learning and database channels), as well as channels for resources and error handling.  Additionally, there are voice channels that allow group members to talk through problems live.  Discord offers screen sharing so group members can present their code.  Finally, we created a bot that announces when changes are made to the repository, so all members are informed as changes are pushed.  As a backup, all group members have exchanged phone numbers and email.
