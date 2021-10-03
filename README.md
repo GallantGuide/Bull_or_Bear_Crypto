@@ -1,4 +1,4 @@
-# Bull_or_Bear_Crypto
+# Bull or Bear Crypto
 
 Using machine learning to forecast cryptocurrency prices
 
@@ -75,7 +75,7 @@ We are using a series of machine learning models to predict the future behavior 
 
 ### Database Storage
 
-PostgreSQL will be used to store the data from Kaggle and Yahoo Finance ([SQL Schema][Sql/schema.sql]).  MongoDB will be used to store document-base data including Reddit and Twitter posts.
+PostgreSQL will be used to store the data from Kaggle and Yahoo Finance ([SQL Schema][Sql/Schema/schema.sql]).  MongoDB will be used to store document-based data including Reddit and Twitter posts.
 
 ### Machine Learning
 
