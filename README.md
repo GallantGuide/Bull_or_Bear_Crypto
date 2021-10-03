@@ -1,4 +1,4 @@
-# Bull_or_Bear_Crypto
+# Bull or Bear Crypto
 
 Using machine learning to forecast cryptocurrency prices
 
@@ -15,7 +15,7 @@ Cryptocurrencies are of great interest to the finance community right now.  Thei
 ### Source Data
 
 -	[Kaggle Cryptocurrency Dataset]( https://www.kaggle.com/sudalairajkumar/cryptocurrencypricehistory) (coin prices over time)
--	Yahoo Finance (stock trends over time) - [web-scraper](web_scraping/load/Yahoo_finance_scraper.py)
+-	Yahoo Finance (stock trends over time) - [web-scraper](web_scraping/load/Yahoo_Finance_Scraper.py)
 -	Reddit (posts) - [api-caller](web_scraping/load/Reddit_API_Caller.py)
 -	Twitter (posts) - WIP
 
@@ -75,7 +75,7 @@ We are using a series of machine learning models to predict the future behavior 
 
 ### Database Storage
 
-PostgreSQL will be used to store the data from Kaggle and Yahoo Finance ([SQL Schema][Sql/schema.sql]).  MongoDB will be used to store document-base data including Reddit and Twitter posts.
+PostgreSQL will be used to store the data from Kaggle and Yahoo Finance ([SQL Schema](Sql/Schema/schema.sql)).  MongoDB will be used to store document-based data including Reddit and Twitter posts.
 
 ### Machine Learning
 
