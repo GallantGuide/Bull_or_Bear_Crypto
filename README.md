@@ -1,4 +1,4 @@
-# Bull or Bear Crypto
+# Bull_or_Bear_Crypto
 
 Using machine learning to forecast cryptocurrency prices
 
@@ -30,6 +30,7 @@ Cryptocurrencies are of great interest to the finance community right now.  Thei
 
 
 ## Project Implementation
+
 ### Technologies Used
 
 - `SQL`
@@ -64,6 +65,7 @@ All preprocessing is done in Python.  The Kaggle data is clean and required no p
 ##### Exploratory
 
 We will check for correlations between various cryptocurrency prices.  We will also examine the correlations between individual currency prices and other features like how much a currency is talked about on social media or other market trends.
+
 ##### Machine learning
 
 We are using a series of machine learning models to predict the future behavior of cryptocurrencies.  See the machine learning section below for more imdept information.  The models include:
@@ -122,4 +124,3 @@ SciKitLearn is the ML library we'll be using to create a classifier.  A function
 ### Dashboard
 
 In addition to using a Flask template, we will also integrate Plotly.js for a fully functioning and interactive dashboard. It will be hosted on ___.
->>>>>>> flask
