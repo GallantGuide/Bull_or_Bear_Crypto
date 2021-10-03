@@ -132,7 +132,7 @@ As it can be seen, the predictions for Bitcoin in 2021 were not accurate at all.
 
 ![BTC 2021 Predictions](https://github.com/CaptCarmine/Bull_or_Bear_Crypto/blob/ML_Model/Machine_Learning/Resources/BTC_2021_Prediction.png)
 
-*image2*
+![BTC Accuracy Graph](https://github.com/CaptCarmine/Bull_or_Bear_Crypto/blob/ML_Model/Machine_Learning/Resources/BTC_Accuracy.png)
 *Where y is real price and yhat is the model-predicted price*
 
 Moreover, we wanted to train the model using the newest data (up to mid 2021) which displayed the increase in crypto's popularity. Again, these results were not possible to evaluate as they were based on the unknown future (2022), so we wanted to use them to visualize the trend in crypto's price and display the steep slope many investors base their bullish predictions on. 
