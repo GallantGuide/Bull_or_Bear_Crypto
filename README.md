@@ -93,6 +93,8 @@ The goal was to create a machine learning model using facebook's prophet library
 
 Moreover, prophet required the data to be preprocessed into a two-column datetime and price dataframe. The preprocessing included filtering the columns that were not going to be used, changing the date string to a date data type, and renaming the columns as 'DS' for the date and 'y' for the price. 
 
+![BTC Dtypes](https://github.com/CaptCarmine/Bull_or_Bear_Crypto/blob/ML_Model/Machine_Learning/Resources/prophet_btc_dtypes.png)
+
 ```
 def preprocess_and_model(crypto_df):
     # Preprocessing
@@ -128,7 +130,10 @@ As it can be seen in the Prophet_ML_Model.ipynb, we wanted to first train the mo
 
 As it can be seen, the predictions for Bitcoin in 2021 were not accurate at all. This is due to the fact that in 2020-2021 there was a strong and unexpected surge in cryptocurrencies as a whole. This could be associated with Covid as the global economy and government's ability to manage the situation was filled with doubt, so many people started relying/trusting in a decentralized monetary system. Not only that, but many countries and entities beginning to trust in these coins pushed a lot more people to invest in them.  
 
-*images 2021 predictions*
+![BTC 2021 Predictions](https://github.com/CaptCarmine/Bull_or_Bear_Crypto/blob/ML_Model/Machine_Learning/Resources/BTC_2021_Prediction.png)
+
+*image2*
+*Where y is real price and yhat is the model-predicted price*
 
 Moreover, we wanted to train the model using the newest data (up to mid 2021) which displayed the increase in crypto's popularity. Again, these results were not possible to evaluate as they were based on the unknown future (2022), so we wanted to use them to visualize the trend in crypto's price and display the steep slope many investors base their bullish predictions on. 
 
