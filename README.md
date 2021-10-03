@@ -75,7 +75,7 @@ We are using a series of machine learning models to predict the future behavior 
 
 ### Database Storage
 
-PostgreSQL will be used to store the data from Kaggle and Yahoo Finance ([SQL Schema](Sql/Schema/schema.sql)).  MongoDB will be used to store document-based data including Reddit and Twitter posts.
+PostgreSQL will be used to store the data from Kaggle and Yahoo Finance ([SQL Schema](Sql/Schema/schema.sql)). Currently, we are using [csvs](Sql/Resources) for setting up the analysis pipeline. MongoDB will be used to store document-based data including Reddit and Twitter posts.
 
 ### Machine Learning
 
