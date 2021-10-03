@@ -5,6 +5,8 @@
 */checkpoints/*
 checkpoints/*
 
+## Don't save the mac folder files
+.DS_Store
 
 
 ## flask
