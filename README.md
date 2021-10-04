@@ -77,6 +77,8 @@ We are using a series of machine learning models to predict the future behavior 
 
 PostgreSQL will be used to store the data from Kaggle and Yahoo Finance ([SQL Schema](Sql/Schema/schema.sql)). Currently, we are using [csvs](Sql/Resources) for setting up the analysis pipeline. MongoDB will be used to store document-based data including Reddit and Twitter posts.
 
+![SQL schema](https://github.com/CaptCarmine/Bull_or_Bear_Crypto/blob/main/images/SQL_Schema.png?raw=true)  
+
 ### Machine Learning
 
 #### Prophet Model
