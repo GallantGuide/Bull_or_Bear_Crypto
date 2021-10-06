@@ -10,7 +10,7 @@ import uuid
 app = Flask(__name__)
 
 
-@app.route("/")
+@app.route("/ste")
 def welcome():
     return(
     '''
@@ -24,7 +24,7 @@ def welcome():
     )
 
 
-@app.route("/Site", methods = ['GET','POST'])
+@app.route("/", methods = ['GET','POST'])
 def test_template():
     request_type = request.method
     if request_type == 'GET':
