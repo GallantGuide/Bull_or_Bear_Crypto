@@ -15,7 +15,7 @@ def make_picture(training_data_fname, model, user_input_np_arr, output_file):
   fig.add_trace(go.Scatter(x=x_new.reshape(19), y=preds, mode = 'lines', name = 'Model'))
 
   new_preds = model.predict(user_input_np_arr)
-  fig.add_trace(go.Scatter(x=user_input_np_arr.reshape(len(user_input_np_arr)), y = new_preds, name='New Outputs', mode ='markers', marker=dict(color ='green', size = 20, line=dict(color ='orange',width=2))))
+  fig.add_trace(go.Scatter(x=user_input_np_arr.reshape(len(user_input_np_arrl)), y = new_preds, name='New Outputs', mode ='markers', marker=dict(color ='green', size = 20, line=dict(color ='orange',width=2))))
 
   fig.write_image(output_file, width = 800, engine='kaleido')
   fig.show()

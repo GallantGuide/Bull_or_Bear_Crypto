@@ -10,7 +10,21 @@ import uuid
 app = Flask(__name__)
 
 
-@app.route("/", methods = ['GET','POST'])
+@app.route("/")
+def welcome():
+    return(
+    '''
+    Welcome to Bull or Bear Crypto '\n
+    Available Routes: \n
+    /Site \n
+    /test_model \n
+    /hello_world \n
+    /api/v1.0
+    '''
+    )
+
+
+@app.route("/Site", methods = ['GET','POST'])
 def test_template():
     request_type = request.method
     if request_type == 'GET':
@@ -21,12 +35,10 @@ def test_template():
         file = 'static/AgesAndHeights.pkl'
         model = load('test_model.joblib')
         user_input = functions.user_input_np_arr(text)
-        path = 'static/' + random_string + '.svg'
+        path = 'static/predictions' + random_string + '.svg'
         functions.make_picture(file, model, user_input, path)
         return render_template('index.html', href=path)
 
-
-@app.route("/Site")
 
 @app.route("/test_model")
 def test_model():
