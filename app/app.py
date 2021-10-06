@@ -32,12 +32,12 @@ def test_template():
     if request_type == 'POST':
         text = request.form['text']
         random_string = uuid.uuid4().hex
-        file = 'static/AgesAndHeights.pkl'
-        model = load('test_model.joblib')
+        file = 'app/static/AgesAndHeights.pkl'
+        model = load('app/test_model.joblib')
         user_input = functions.user_input_np_arr(text)
-        path = 'static/predictions' + random_string + '.svg'
+        path = 'app/static/predictions' + random_string + '.svg'
         functions.make_picture(file, model, user_input, path)
-        return render_template('index.html', href=path)
+        return render_template('index.html', href=path[4:])
 
 
 @app.route("/test_model")
@@ -52,9 +52,4 @@ def test_model():
 @app.route("/hello_world")
 def hello_world():
     return "Hello, World!"
-
-
-
-
-if __name__=='__main__':
-    app.run(debug=True)    
+    
