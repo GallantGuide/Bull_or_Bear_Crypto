@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> main
 # ignore files/folders added by us
 
 ## don't save model checkpoints
@@ -6,10 +9,19 @@
 */checkpoints/*
 checkpoints/*
 
+<<<<<<< HEAD
 
 
 =======
 >>>>>>> flask
+=======
+## Don't save the mac folder files
+.DS_Store
+
+
+## flask
+
+>>>>>>> main
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
