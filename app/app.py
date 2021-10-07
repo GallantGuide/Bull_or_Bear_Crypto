@@ -31,7 +31,7 @@ def test_template():
 @app.route("/test_model")
 def test_model():
     test_np_input = np.array([[1],[2],[17]])
-    model = load('test_model.joblib')
+    model = load('app/test_model.joblib')
     preds = model.predict(test_np_input)
     preds_str = str(preds)
     return preds_str
