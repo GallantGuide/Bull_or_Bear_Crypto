@@ -1,4 +1,4 @@
-# Bull_or_Bear_Crypto
+# Bull or Bear Crypto
 
 Using machine learning to forecast cryptocurrency prices
 
@@ -15,7 +15,7 @@ Cryptocurrencies are of great interest to the finance community right now.  Thei
 ### Source Data
 
 -	[Kaggle Cryptocurrency Dataset]( https://www.kaggle.com/sudalairajkumar/cryptocurrencypricehistory) (coin prices over time)
--	Yahoo Finance (stock trends over time) - [web-scraper](web_scraping/load/Yahoo_finance_scraper.py)
+-	Yahoo Finance (stock trends over time) - [web-scraper](web_scraping/load/Yahoo_Finance_Scraper.py)
 -	Reddit (posts) - [api-caller](web_scraping/load/Reddit_API_Caller.py)
 -	Twitter (posts) - WIP
 
@@ -75,13 +75,15 @@ We are using a series of machine learning models to predict the future behavior 
 
 ### Database Storage
 
-PostgreSQL will be used to store the data from Kaggle and Yahoo Finance ([SQL Schema][Sql/schema.sql]).  MongoDB will be used to store document-base data including Reddit and Twitter posts.
+PostgreSQL will be used to store the data from Kaggle and Yahoo Finance ([SQL Schema](Sql/Schema/schema.sql)). Currently, we are using [csvs](Sql/Resources) for setting up the analysis pipeline. MongoDB will be used to store document-based data including Reddit and Twitter posts.
+
+![SQL schema](https://github.com/CaptCarmine/Bull_or_Bear_Crypto/blob/main/images/SQL_Schema.png?raw=true)  
 
 ### Machine Learning
 
 #### Prophet Model
 
-The goal was to create a machine learning model using facebook's prophet library in order to predict the price of bitcoin and some other altcoins. The way to go around this problem was to first extract the data from kaggle. Please, refer [here](https://www.kaggle.com/sudalairajkumar/cryptocurrencypricehistory?select=coin_Ethereum.csv). We used bitcoin, ethereum, and solana's cryptocurrencies. The raw data came in CSVs of 10 columns and as many rows as days of lifetime for each coin. For example, Bitcoins csv file looked like this: 
+The goal was to create a machine learning model using facebook's prophet library in order to predict the price of bitcoin and some other altcoins. The way to go around this problem was to first extract the data from kaggle. Please, refer [here](https://www.kaggle.com/sudalairajkumar/cryptocurrencypricehistory?select=coin_Ethereum.csv). We used bitcoin, ethereum, and cardano's cryptocurrencies. The raw data came in CSVs of 10 columns and as many rows as days of lifetime for each coin. For example, Bitcoins csv file looked like this: 
 
  |    |   SNo | Name    | Symbol   | Date                |    High |      Low |    Open |   Close |   Volume |   Marketcap |
 |---:|------:|:--------|:---------|:--------------------|--------:|---------:|--------:|--------:|---------:|------------:|
@@ -91,32 +93,63 @@ The goal was to create a machine learning model using facebook's prophet library
 |  3 |     4 | Bitcoin | BTC      | 2013-05-02 23:59:59 | 125.6   |  92.2819 | 116.38  |  105.21 |        0 | 1.16852e+09 |
 |  4 |     5 | Bitcoin | BTC      | 2013-05-03 23:59:59 | 108.128 |  79.1    | 106.25  |   97.75 |        0 | 1.086e+09   |
 
-Moreover, prophet required the data to be preprocessed into a two-column datetime and price dataframe. The preprocessing included filtering the columns that were not going to be used, change the date string to a date data type, and renaming the columns as 'DS' for the date and 'y' for the price. The final product was a dataframe that looked like this `prophet_btc`:
+Moreover, prophet required the data to be preprocessed into a two-column datetime and price dataframe. The preprocessing included filtering the columns that were not going to be used, changing the date string to a date data type, and renaming the columns as 'DS' for the date and 'y' for the price. 
 
- |    | ds                  |      y |
-|---:|:--------------------|-------:|
-|  0 | 2013-04-29 23:59:59 | 144.54 |
-|  1 | 2013-04-30 23:59:59 | 139    |
-|  2 | 2013-05-01 23:59:59 | 116.99 |
-|  3 | 2013-05-02 23:59:59 | 105.21 |
-|  4 | 2013-05-03 23:59:59 |  97.75 |
+![BTC Dtypes](https://github.com/CaptCarmine/Bull_or_Bear_Crypto/blob/ML_Model/Machine_Learning/Resources/prophet_btc_dtypes.png)
 
-And finally, we created the instance for the model. The prophet_btc dataframe was used to fit it and we predicted for a period of 365 days. That is to say up to mid 2022. 
+```
+def preprocess_and_model(crypto_df):
+    # Preprocessing
+    crypto_df = crypto_df.drop(['SNo','Name','Symbol','High','Low','Open','Marketcap','Volume'], axis=1)
+    crypto_df['Date'] = crypto_df['Date'].apply(lambda date: dt.strptime(date,'%Y-%m-%d %H:%M:%S'))
+    crypto_df = crypto_df.rename(columns={'Date':'ds','Close':'y'})
+    train_percent = int(len(crypto_df)*0.80)
+    test_periods = int(len(crypto_df)*0.20)
+    crypto_train_df = crypto_df.iloc[:train_percent, :]
+    
+    # Modeling
+    m = Prophet()
+    m.fit(crypto_train_df)
+    future = m.make_future_dataframe(periods=test_periods)
+    forecast = m.predict(future)
+    forecast_df = forecast[['ds','yhat','yhat_lower','yhat_upper']]
+    predict_graph = m.plot(forecast)
+    component_graph = m.plot_components(forecast)
+    
+    # Price prediction (yhat) vs acual price (y)
+    price = crypto_df['y']
+    acc_forecast = forecast[['ds','yhat']]
+    crypto_accuracy_df = acc_forecast.join(price)
+    crypto_accuracy_df = crypto_accuracy_df.set_index('ds')
+    predict_accuracy_graph = crypto_accuracy_df.plot()
+    
+    return forecast_df, predict_graph, component_graph, predict_accuracy_graph
+```
 
- |      | ds                  |    yhat |   yhat_lower |   yhat_upper |
-|-----:|:--------------------|--------:|-------------:|-------------:|
-| 3351 | 2022-07-02 23:59:59 | 66179.6 |      59114.7 |      73165.2 |
-| 3352 | 2022-07-03 23:59:59 | 66245.3 |      58955   |      73208.7 |
-| 3353 | 2022-07-04 23:59:59 | 66349.7 |      59069.1 |      73530.3 |
-| 3354 | 2022-07-05 23:59:59 | 66449.3 |      59646.1 |      74203.6 |
-| 3355 | 2022-07-06 23:59:59 | 66574.6 |      59226   |      73589.1 |
+As it can be seen in the Prophet_ML_Model.ipynb, we wanted to first train the model using data up to 2020, so that the model could predict up to 2021 and we could graphically compare the results to today's price to measure the accuracy. Please refer to the results subtititle. And secondly, as the results were not as accurate because of the 2021 strong and unexpected surge of cryptocurrencies, we wanted to also create Prophet_ML_Future2022.ipynb where we trained our model including data up to present times (mid 2021) to forecast up to mid 2022. The results were a lot different.
 
 ##### Results: 
+
+As it can be seen, the predictions for Bitcoin in 2021 were not accurate at all. This is due to the fact that in 2020-2021 there was a strong and unexpected surge in cryptocurrencies as a whole. This could be associated with Covid as the global economy and government's ability to manage the situation was filled with doubt, so many people started relying/trusting in a decentralized monetary system. Not only that, but many countries and entities beginning to trust in these coins pushed a lot more people to invest in them.  
+
+![BTC 2021 Predictions](https://github.com/CaptCarmine/Bull_or_Bear_Crypto/blob/ML_Model/Machine_Learning/Resources/BTC_2021_Prediction.png)
+
+![BTC Accuracy Graph](https://github.com/CaptCarmine/Bull_or_Bear_Crypto/blob/ML_Model/Machine_Learning/Resources/BTC_Accuracy.png)
+*Where y is real price and yhat is the model-predicted price*
+
+Moreover, we wanted to train the model using the newest data (up to mid 2021) which displayed the increase in crypto's popularity. Again, these results were not possible to evaluate as they were based on the unknown future (2022), so we wanted to use them to visualize the trend in crypto's price and display the steep slope many investors base their bullish predictions on. 
+
 *Price prediction: from July 2021 to July 22*
 ![BTC_Prediction](https://github.com/CaptCarmine/Bull_or_Bear_Crypto/blob/ML_Model/Machine_Learning/Resources/BTC_Predictions.png)  
 
 *Yearly, monthly, and weekly components*
 ![BTC_Components](https://github.com/CaptCarmine/Bull_or_Bear_Crypto/blob/ML_Model/Machine_Learning/Resources/BTC_Components.png)
+
+##### Summary
+
+As a first approach to this project, we wanted to somewhat explore the data and make some simple predictions and visualizations. After evaluating these results, we concluded that there is a lot more analysis to be made. The model was not accurate at all because it was impossible for it to predict the sudden increase of Bitcoin at the end of 2020 using basic statistical predictions on the price. There are many other factors that affect cryptocurrencies now a days such as politics, volume, social media, influencers, other altcoins, crypto new utilities and innovations, adoption, etc. So, furthermore with this project we will be creating reddit and twitter sentiment analyses and using other machine learning models to better predict cryptos' prices. 
+
+
 
 #### Neural Network Model
 SciKitLearn is the ML library we'll be using to create a classifier.  A function to automate data processing and model training exists, but the time aspect of implementation is still a work in progress.
