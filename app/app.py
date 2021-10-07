@@ -9,8 +9,36 @@ import uuid
 
 app = Flask(__name__)
 
+@app.route("/")
+def welcome():
+    return(
+    '''
+    Welcome to Bull or Bear Crypto '\n
+    Available Routes: \n
+    /site \n
+    /test_site \n
+    /test_model \n
+    /hello_world \n
+    /api/v1.0
+    '''
+    )
 
-@app.route("/", methods = ['GET','POST'])
+@app.route("/site", methods = ['GET','POST'])
+def site_template():
+    request_type = request.method
+    if request_type == 'GET':
+        return render_template('index.html', href='static/Base_image.svg')
+    if request_type == 'POST':
+        text = request.form['text']
+        random_string = uuid.uuid4().hex
+        file = 'app/static/AgesAndHeights.pkl'
+        model = load('app/test_model.joblib')
+        user_input = user_input_np_arr(text)
+        path = 'app/static/' + random_string + '.svg'
+        make_picture(file, model, user_input, path)
+        return render_template('index.html', href=path[4:])
+
+@app.route("/test_site", methods = ['GET','POST'])
 def test_template():
     request_type = request.method
     if request_type == 'GET':
@@ -25,8 +53,6 @@ def test_template():
         make_picture(file, model, user_input, path)
         return render_template('index.html', href=path[4:])
 
-
-@app.route("/Site")
 
 @app.route("/test_model")
 def test_model():
