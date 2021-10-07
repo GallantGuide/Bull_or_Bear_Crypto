@@ -1,10 +1,10 @@
 from flask import Flask, render_template, request
 from joblib import load
+from .functions import make_picture, user_input_np_arr
 import pandas as pd
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
-import functions
 import uuid
 
 app = Flask(__name__)
