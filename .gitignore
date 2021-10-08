@@ -5,6 +5,9 @@
 */checkpoints/*
 checkpoints/*
 
+# don't upload credentials
+config.py
+
 ## Don't save the mac folder files
 .DS_Store
 
