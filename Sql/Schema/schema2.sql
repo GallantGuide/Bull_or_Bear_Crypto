@@ -3,6 +3,8 @@ CREATE TABLE "COINS" (
     "Name" varchar   NOT NULL
 );
 
+select * from "COINS";
+
 CREATE TABLE "BITCOIN" (
     "Date" date   NOT NULL,
     "Open" decimal   NOT NULL,
@@ -170,3 +172,44 @@ REFERENCES "COINS" ("Symbol");
 
 ALTER TABLE "COSMOS" ADD CONSTRAINT "fk_COSMOS_Symbol" FOREIGN KEY("Symbol")
 REFERENCES "COINS" ("Symbol");
+
+CREATE TABLE "K_BITCOIN" (
+    "SNo" int   NOT NULL,
+    "Name" varchar   NOT NULL,
+    "Symbol" varchar   NOT NULL,
+    "Date" date   NOT NULL,
+    "High" float   NOT NULL,
+    "Low" float   NOT NULL,
+    "Open" float  NOT NULL,
+    "Close" float   NOT NULL,
+    "Volume" float   NOT NULL,
+    "Marketcap" float   NOT NULL
+);
+
+CREATE TABLE "K_ETHEREUM" (
+    "SNo" int   NOT NULL,
+    "Name" varchar   NOT NULL,
+    "Symbol" varchar   NOT NULL,
+    "Date" date   NOT NULL,
+    "High" float   NOT NULL,
+    "Low" float   NOT NULL,
+    "Open" float  NOT NULL,
+    "Close" float   NOT NULL,
+    "Volume" float   NOT NULL,
+    "Marketcap" float   NOT NULL
+);
+
+CREATE TABLE "K_CARDANO" (
+    "SNo" int   NOT NULL,
+    "Name" varchar   NOT NULL,
+    "Symbol" varchar   NOT NULL,
+    "Date" date   NOT NULL,
+    "High" float   NOT NULL,
+    "Low" float   NOT NULL,
+    "Open" float  NOT NULL,
+    "Close" float   NOT NULL,
+    "Volume" float   NOT NULL,
+    "Marketcap" float   NOT NULL
+);
+
+SELECT * FROM "CARDANO";
