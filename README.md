@@ -1,19 +1,3 @@
-<<<<<<< HEAD
-# Bull_or_Bear_Crypto
-
-<<<<<<< HEAD
-
-# Work Notes:
-The neural network function DOES NOT handle date data.  We'll have to add code to the data processing function for this once we decide how to handle the date data.  For current the test, I am just dropping the date column from the data frame. -- Cristina
-=======
-## Technologies Used
-
-- `Beautiful Soup`
-- `Splinter`
-- `Pandas`
-- `SQL`
-- `Mongo`
-=======
 # Bull or Bear Crypto
 
 Using machine learning to forecast cryptocurrency prices
@@ -37,13 +21,12 @@ Cryptocurrencies are of great interest to the finance community right now.  Thei
 
 ### Target Questions
 
--	Is cryptocurrency behavior correlated between different coins?  I.e. Do they all increase and decrease together?
--	What predicts cryptocurrency behavior?
-  -	Overall market behavior
-  -	Behavior of commodities (e.g. Gold)
-  -	Posts about the currencies on social media (e.g. reddit and twitter)
--	How far into the future are predictions about cryptocurrency behavior accurate?
-
+- Is cryptocurrency behavior correlated between different coins?  I.e. Do they all increase and decrease together?
+- What predicts cryptocurrency behavior?
+- Overall market behavior
+- Behavior of commodities (e.g. Gold)
+- Posts about the currencies on social media (e.g. reddit and twitter)
+- How far into the future are predictions about cryptocurrency behavior accurate?
 
 ## Project Implementation
 
@@ -52,7 +35,7 @@ Cryptocurrencies are of great interest to the finance community right now.  Thei
 - `SQL`
 - `MongoDB`
 - `Python`
-  - `Prophet` library
+  - `Prophet library`
   - `pandas` 1.2.4
   - `requests` 2.25.1
   - `langid` 1.1.6
@@ -65,25 +48,13 @@ Cryptocurrencies are of great interest to the finance community right now.  Thei
   - `os`, `sys`, `time`
 
 ### Communication Protocols
+
 All group members belong to a discord server dedicated to this project.  There are text channels dedicated to all aspects of the project (e.g. machine-learning and database channels), as well as channels for resources and error handling.  Additionally, there are voice channels that allow group members to talk through problems live.  Discord offers screen sharing so group members can present their code.  Finally, we created a bot that announces when changes are made to the repository, so all members are informed as changes are pushed.  As a backup, all group members have exchanged phone numbers and email.
->>>>>>> main
 
 ### Resources
 
-### Data Cleaning and Analysis
-
-<<<<<<< HEAD
-Pandas will be used to clean the data and perform an exploratory analysis. Further analysis will be completed using Python.
-
-### Database Storage
-
-Mongo is the database we intend to use, and we will integrate Flask to display the data.
-
-### Machine Learning
-
-SciKitLearn is the ML library we'll be using to create a classifier. Our training and testing setup is ___. Extra ML verbiage here.
-=======
 #### Pre-processing
+
 All preprocessing is done in Python.  The Kaggle data is clean and required no preprocessing.  The Yahoo Finance data is scraped from Yahoo Finance in groups of 100.  These groups are then combined and sorted by date.  No other processing is required.  For the Reddit data, posts are pulled from an API.  Posts that are not in English (as identified by langid) are dropped.  Posts with duplicate titles are dropped.  Finally, the NLTK library is used to run a sentiment analysis on the post title and the sentiment data (positive, negative, neutral, composite) is added to each post.
 
 #### Post-processing
@@ -97,9 +68,9 @@ We will check for correlations between various cryptocurrency prices.  We will a
 ##### Machine learning
 
 We are using a series of machine learning models to predict the future behavior of cryptocurrencies.  See the machine learning section below for more imdept information.  The models include:
--	Prophet: uses time and price information to predict future prices
--	Neural Network: uses a large number of features which may include time, prices of cryptocurrencies, prices of other market factors (e.g. the S&P500 or commodities), and “buzz” factors
 
+- Prophet: uses time and price information to predict future prices
+- Neural Network: uses a large number of features which may include time, prices of cryptocurrencies, prices of other market factors (e.g. the S&P500 or commodities), and “buzz” factors
 
 ### Database Storage
 
@@ -156,7 +127,7 @@ def preprocess_and_model(crypto_df):
 
 As it can be seen in the Prophet_ML_Model.ipynb, we wanted to first train the model using data up to 2020, so that the model could predict up to 2021 and we could graphically compare the results to today's price to measure the accuracy. Please refer to the results subtititle. And secondly, as the results were not as accurate because of the 2021 strong and unexpected surge of cryptocurrencies, we wanted to also create Prophet_ML_Future2022.ipynb where we trained our model including data up to present times (mid 2021) to forecast up to mid 2022. The results were a lot different.
 
-##### Results: 
+##### Results:
 
 As it can be seen, the predictions for Bitcoin in 2021 were not accurate at all. This is due to the fact that in 2020-2021 there was a strong and unexpected surge in cryptocurrencies as a whole. This could be associated with Covid as the global economy and government's ability to manage the situation was filled with doubt, so many people started relying/trusting in a decentralized monetary system. Not only that, but many countries and entities beginning to trust in these coins pushed a lot more people to invest in them.  
 
@@ -180,13 +151,9 @@ As a first approach to this project, we wanted to somewhat explore the data and 
 
 
 #### Neural Network Model
+
 SciKitLearn is the ML library we'll be using to create a classifier.  A function to automate data processing and model training exists, but the time aspect of implementation is still a work in progress.
->>>>>>> main
 
 ### Dashboard
 
 In addition to using a Flask template, we will also integrate Plotly.js for a fully functioning and interactive dashboard. It will be hosted on ___.
-<<<<<<< HEAD
->>>>>>> flask
-=======
->>>>>>> main
