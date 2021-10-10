@@ -23,10 +23,14 @@ Cryptocurrencies are of great interest to the finance community right now.  Thei
 
 - Is cryptocurrency behavior correlated between different coins?  I.e. Do they all increase and decrease together?
 - What predicts cryptocurrency behavior?
-- Overall market behavior
-- Behavior of commodities (e.g. Gold)
-- Posts about the currencies on social media (e.g. reddit and twitter)
+  - Overall market behavior
+  - Behavior of commodities (e.g. Gold)
+  - Posts about the currencies on social media (e.g. reddit and twitter)
 - How far into the future are predictions about cryptocurrency behavior accurate?
+
+### Presentation
+[Google Slides Presentation](https://docs.google.com/presentation/d/1qu0JbQYSA0umzOtQzQflVEVPWwJOPFtdg98poT5wJQE)
+
 
 ## Project Implementation
 
