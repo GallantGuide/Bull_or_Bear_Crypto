@@ -17,7 +17,7 @@ Cryptocurrencies are of great interest to the finance community right now.  Thei
 -	[Kaggle Cryptocurrency Dataset]( https://www.kaggle.com/sudalairajkumar/cryptocurrencypricehistory) (coin prices over time)
 -	Yahoo Finance (stock trends over time) - [web-scraper](web_scraping/load/Yahoo_Finance_Scraper.py)
 -	Reddit (posts) - [api-caller](web_scraping/load/Reddit_API_Caller.py)
--	Twitter (posts) - WIP
+-	Twitter (posts) - [api-caller](web_scraping/load/Twitter_API_Caller.py)
 
 ### Target Questions
 
@@ -55,7 +55,11 @@ All group members belong to a discord server dedicated to this project.  There a
 
 #### Pre-processing
 
-All preprocessing is done in Python.  The Kaggle data is clean and required no preprocessing.  The Yahoo Finance data is scraped from Yahoo Finance in groups of 100.  These groups are then combined and sorted by date.  No other processing is required.  For the Reddit data, posts are pulled from an API.  Posts that are not in English (as identified by langid) are dropped.  Posts with duplicate titles are dropped.  Finally, the NLTK library is used to run a sentiment analysis on the post title and the sentiment data (positive, negative, neutral, composite) is added to each post.
+All preprocessing is done in Python.
+- The Kaggle data is clean and required no preprocessing.
+- The Yahoo Finance data is scraped from Yahoo Finance in groups of 100.  These groups are then combined and sorted by date.  No other processing is required.
+- For the Reddit data, posts are pulled from an API.  Posts that are not in English (as identified by langid) are dropped.  Posts with duplicate titles are dropped.  Finally, the NLTK library is used to run a sentiment analysis on the post title and the sentiment data (positive, negative, neutral, composite) is added to each post.
+- For the Twitter data, posts are pulled from an API.  The API request only returns English results.  Desired features are pulled out of twitter.module.status objects into a list of generic objects.  The NLTK library is used to run a sentiment analysis on the post text and the sentiment data (positive, negative, neutral, composite) is added to each post.
 
 #### Post-processing
 
