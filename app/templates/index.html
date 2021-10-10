@@ -1,8 +1,13 @@
+{% extends "base.html" %}
+{% block title %} Test Site {% endblock %}
+
+{% block content %}  
 <center>
-    <img src = "{{ href }}"height=600 />
+    <img src = "{{ href }}" height=600 />
     <form method="POST">
         <label>Input a comma-separated list of age values: </label>
         <input name = 'text'>
         <input type="submit">
     </form>
 </center>
+{% endblock %}
