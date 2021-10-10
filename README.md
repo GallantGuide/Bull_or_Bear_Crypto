@@ -78,11 +78,16 @@ PostgreSQL will be used to store the data from Kaggle and Yahoo Finance ([SQL Sc
 
 ![SQL schema](https://github.com/CaptCarmine/Bull_or_Bear_Crypto/blob/main/images/SQL_Schema.png?raw=true)  
 
+### Connection
+
+To proceed with the machine learning models, we used SQLAlchemy to connect to the database and extract the Kaggle datasets for Bitcoin, Ethereum, and Cardano. This part of the project can be seen in the [DB_Connection&DataExctraction.ipynb](https://github.com/CaptCarmine/Bull_or_Bear_Crypto/blob/ML_Model/Machine_Learning/DB_Connection%26DataExtraction.ipynb). We created an engine and a session to then query all the data we needed. Moreover, we converted it into a dataframe and exported it into the data folder. The resulting tables were the BTC.csv, ETH.csv, and ADA.csv.  
+
+
 ### Machine Learning
 
 #### Prophet Model
 
-The goal was to create a machine learning model using facebook's prophet library in order to predict the price of bitcoin and some other altcoins. The way to go around this problem was to first extract the data from kaggle. Please, refer [here](https://www.kaggle.com/sudalairajkumar/cryptocurrencypricehistory?select=coin_Ethereum.csv). We used bitcoin, ethereum, and cardano's cryptocurrencies. The raw data came in CSVs of 10 columns and as many rows as days of lifetime for each coin. For example, Bitcoins csv file looked like this: 
+The goal was to create a machine learning model using facebook's prophet library in order to predict the price of bitcoin and some other altcoins. The way to go around this problem was to first extract the data from kaggle. Please, refer [here](https://www.kaggle.com/sudalairajkumar/cryptocurrencypricehistory?select=coin_Ethereum.csv). We used bitcoin, ethereum, and cardano's cryptocurrencies to store them in our database. Then, we extracted the data to the jupyter notebooks to run the models The raw data came in CSVs of 10 columns and as many rows as days of lifetime for each coin. For example, Bitcoins csv file looked like this: 
 
  |    |   SNo | Name    | Symbol   | Date                |    High |      Low |    Open |   Close |   Volume |   Marketcap |
 |---:|------:|:--------|:---------|:--------------------|--------:|---------:|--------:|--------:|---------:|------------:|
