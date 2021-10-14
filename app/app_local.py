@@ -130,3 +130,22 @@ def test_model():
 @app.route("/hello_world")
 def hello_world():
     return "Hello, World!"
+
+
+# Local site app config 
+if __name__ == "__main__":
+    app.run(debug=True)
+
+
+
+# class config(object):
+#     SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:umiami17@crypto.cbzxnt6iwq2t.us-east-2.rds.amazonaws.com:5432/postgres' 
+#     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+# app.config.from_object(config)
+# db = SQLAlchemy(app)
+# metadata = MetaData()
+
+# table_reflection = Table("K_BITCOIN", metadata, autoload=True, autoload_with=db.engine)
+# attrs = {"__table__": table_reflection}
+# Kaggle = type("K_BITCOIN", (db.Model,), attrs)
