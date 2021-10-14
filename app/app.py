@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 from joblib import load
-from .functions import make_picture, user_input_np_arr
+# from .functions import make_picture, user_input_np_arr
 from sqlalchemy import Table, MetaData
 from flask_sqlalchemy import SQLAlchemy
 import pandas as pd
@@ -51,6 +51,32 @@ def test_template():
         make_picture(file, model, user_input, path)
         return render_template('index.html', href=path[4:])
 
+def make_picture(training_data_fname, model, user_input_np_arr, output_file):
+  data = pd.read_pickle(training_data_fname)
+  data = data[data['Age'] > 0 ]
+  ages = data['Age']
+  heights = data['Height']
+  x_new = np.array(list(range(19))).reshape(19,1)
+  preds = model.predict(x_new)
+  fig= px.scatter(x = ages, y = heights, title= "Height V Age of People", labels = {'x':'Age (Years)', 'y': 'Heights(inches)'})
+  fig.add_trace(go.Scatter(x=x_new.reshape(19), y=preds, mode = 'lines', name = 'Model'))
+
+  new_preds = model.predict(user_input_np_arr)
+  fig.add_trace(go.Scatter(x=user_input_np_arr.reshape(len(user_input_np_arr)), y = new_preds, name='New Outputs', mode ='markers', marker=dict(color ='green', size = 20, line=dict(color ='orange',width=2))))
+
+  fig.write_image(output_file, width = 800, engine='kaleido')
+  fig.show()
+
+def user_input_np_arr(float_str):
+  def is_float(s):
+    try:
+      float(s)
+      return True 
+    except:
+      return False  
+  floats = np.array([float(x) for x in float_str.split(',') if is_float(x)])
+  return floats.reshape(len(floats),1)
+
 
 @app.route("/bitcoin", methods = ['GET','POST'])
 def Bitcoin_Image():
@@ -61,7 +87,7 @@ def Bitcoin_Image():
         user_input = user_input_np_arr(text)
         path = 'static/' + random_string + '.svg'
         make_picture(user_input, path)
-        return render_template('bitcoin.html', href=path)
+        return render_template('bitcoin.html', href=path[4:])
     else:
         return render_template('bitcoin.html', href='static/images/actual_vs_predictions.svg') 
 
