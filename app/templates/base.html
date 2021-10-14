@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+    rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+  <body class="bg-dark">
+
+    <!-- Banner and nav bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+      <div class="container-fluid">
+
+        <!-- Project label -->
+        <span class="navbar-brand"> Bull_or_Bear_Crypto </span>
+
+        <!--  -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- nav Links-->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+            <!-- other pages -->
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/">Home</a>
+            </li>
+
+            <!-- Coin selector -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+              role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Cryto-Coins
+              </a>
+
+              <!-- Coin list -->
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="/bitcoin_db">Bitcoin_db</a></li>
+                <li><a class="dropdown-item" href="/bitcoin">Bitcoin_image</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="/cardano_db">Cardano_db</a></li>
+                <li><a class="dropdown-item" href="/cardano">Cardano_image</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="/ethereum_db">Ethereum_db</a></li>
+                <li><a class="dropdown-item" href="/ethereum">Ethereum_image</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="/test_site">Test_model</a></li>
+              </ul>
+            </li>
+
+            <!-- other pages -->
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link disabled">Disabled</a>
+            </li>
+          </ul>
+
+          <!-- Search input -->
+          <form class="d-flex" method="POST">
+            <input class="form-control me-2" placeholder="Site" name="url2" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit"> Search </button>
+          </form>
+          
+        </div>
+      </div>
+    </nav>
+
+    <!-- Data from other Pages -->
+    {% block content %}
+    {% endblock %}
+
+    
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ"
+      crossorigin="anonymous"></script>
+    </body>
+</html>
