@@ -14,7 +14,7 @@ import uuid
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'Database_URL'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'DATABASE_URL'
 db = SQLAlchemy(app)
 
 
@@ -130,3 +130,6 @@ def test_model():
 @app.route("/hello_world")
 def hello_world():
     return "Hello, World!"
+
+if __name__ == "__main__":
+    app.run(debug=True)
