@@ -13,9 +13,9 @@ import uuid
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'DATABASE_URL'
-db = SQLAlchemy(app)
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'DATABASE_URL'
+# db = SQLAlchemy(app)
 
 
 # Table Data for DB Pulls
