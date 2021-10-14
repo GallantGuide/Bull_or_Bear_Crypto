@@ -1,5 +1,5 @@
 # ignore files/folders added by us
-
+app_local.py
 ## don't save model checkpoints
 */*/checkpoints/*
 */checkpoints/*
