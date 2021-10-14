@@ -1,1 +1,1 @@
-web: gunicorn wsgi:app node index.js
+web: gunicorn wsgi:app
