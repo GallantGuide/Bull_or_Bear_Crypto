@@ -38,6 +38,21 @@ def test_template():
         make_picture(file, model, user_input, path)
         return render_template('index.html', href=path[4:])
 
+
+@app.route("/bitcoin", methods = ['GET','POST'])
+def Bitcoin_Image():
+    request_type = request.method
+    if request_type == 'POST':
+        text = request.form['data']
+        random_string = uuid.uuid4().hex
+        user_input = user_input_np_arr(text)
+        path = 'static/' + random_string + '.svg'
+        make_picture(user_input, path)
+        return render_template('bitcoin.html', href=path)
+    else:
+        return render_template('bitcoin.html', href='static/actual_vs_predictions.svg') 
+
+
 def make_picture(training_data_fname, model, user_input_np_arr, output_file):
   data = pd.read_pickle(training_data_fname)
   data = data[data['Age'] > 0 ]

@@ -1,0 +1,25 @@
+
+body {
+  color: #f7f7f7;
+  
+  }
+
+h1 {
+  color: lightgrey;
+}
+
+.block {
+  color: #f7f7f7;
+}
+
+.jumbotron {
+    background-image: url('../images/bull_or_bear.jpg');
+    background-size: contain;
+    text-align: center;
+  }
+
+#home-content {
+  display: flex;
+  align-items: center;
+  flex-flow: column;
+}
