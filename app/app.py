@@ -13,13 +13,13 @@ import uuid
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
-app.config['SQLALCHEMY_DATABASE_URI'] = f'{DATABASE_URL}'
-db = SQLAlchemy(app)
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
+# app.config['SQLALCHEMY_DATABASE_URI'] = f'{DATABASE_URL}'
+# db = SQLAlchemy(app)
 
 
-# # Table Data for DB Pulls
-K_Bitcoin = db.Table('K_BITCOIN', db.metadata, autoload=True, autoload_with=db.engine)
+# # # Table Data for DB Pulls
+# K_Bitcoin = db.Table('K_BITCOIN', db.metadata, autoload=True, autoload_with=db.engine)
 
 
 @app.route("/ste")
@@ -71,8 +71,8 @@ def Bitcoin_Search():
     if request_type == 'POST':
         return "You clicked a button"
     else:
-        k_bitcoin = db.session.query(K_Bitcoin).all()
-        return render_template('bitcoin_db.html', k_bitcoin=k_bitcoin)        
+        # k_bitcoin = db.session.query(K_Bitcoin).all()
+        return render_template('bitcoin_db.html')        
 
 @app.route("/test_model")
 def test_model():
