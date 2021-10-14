@@ -26,14 +26,14 @@ Ethereum = db.Table('K_BITCOIN', db.metadata, autoload=True, autoload_with=db.en
 Cardnamo = db.Table('K_BITCOIN', db.metadata, autoload=True, autoload_with=db.engine)
 
 
-@app.route("/", methods = ['GET','POST'])
+@app.route("/")
 def welcome():
-    request_type = request.method
-    if request_type == "POST":
-        url_param = request.form["url"]
-        return redirect(url_for("url_param",param=url_param))
-    else:    
-        return render_template("welcome.html")
+    # request_type = request.method
+    # if request_type == "POST":
+    #     url_param = request.form["url"]
+    #     return redirect(url_for("url_param",param=url_param))
+    # else:    
+    return render_template("welcome.html")
 
 @app.route("/bitcoin_db", methods = ['GET','POST'])
 def Bitcoin_Search():

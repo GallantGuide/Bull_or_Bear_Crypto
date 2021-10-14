@@ -19,11 +19,11 @@ app = Flask(__name__)
 
 
 # Table Data for DB Pulls
-K_Bitcoin = db.Table('K_BITCOIN', db.metadata, autoload=True, autoload_with=db.engine)
-K_Cardano = db.Table('K_CARDANO', db.metadata, autoload=True, autoload_with=db.engine)
-K_Ethereum = db.Table('K_ETHEREUM', db.metadata, autoload=True, autoload_with=db.engine)
-Ethereum = db.Table('K_BITCOIN', db.metadata, autoload=True, autoload_with=db.engine)
-Cardnamo = db.Table('K_BITCOIN', db.metadata, autoload=True, autoload_with=db.engine)
+# K_Bitcoin = db.Table('K_BITCOIN', db.metadata, autoload=True, autoload_with=db.engine)
+# K_Cardano = db.Table('K_CARDANO', db.metadata, autoload=True, autoload_with=db.engine)
+# K_Ethereum = db.Table('K_ETHEREUM', db.metadata, autoload=True, autoload_with=db.engine)
+# Ethereum = db.Table('K_BITCOIN', db.metadata, autoload=True, autoload_with=db.engine)
+# Cardnamo = db.Table('K_BITCOIN', db.metadata, autoload=True, autoload_with=db.engine)
 
 
 @app.route("/", methods = ['GET','POST'])
