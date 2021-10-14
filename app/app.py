@@ -13,8 +13,8 @@ import uuid
 
 app = Flask(__name__)
 
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
-app.config['SQLALCHEMY_DATABASE_URI'] = {DATABASE_URL}
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
+app.config['SQLALCHEMY_DATABASE_URI'] = f'{DATABASE_URL}'
 db = SQLAlchemy(app)
 
 
