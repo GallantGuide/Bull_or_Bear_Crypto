@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 from joblib import load
 from .functions import make_picture, user_input_np_arr
-from sqlalchemy import Table, MetaData
+from sqlalchemy import Table, MetaData, create_engine
 from flask_sqlalchemy import SQLAlchemy
 import pandas as pd
 import numpy as np
@@ -13,13 +13,13 @@ import uuid
 
 app = Flask(__name__)
 
-# # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'DATABASE_URL'
-# db = SQLAlchemy(app)
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
+app.config['SQLALCHEMY_DATABASE_URI'] = {DATABASE_URL}
+db = SQLAlchemy(app)
 
 
 # # Table Data for DB Pulls
-# K_Bitcoin = db.Table('K_BITCOIN', db.metadata, autoload=True, autoload_with=db.engine)
+K_Bitcoin = db.Table('K_BITCOIN', db.metadata, autoload=True, autoload_with=db.engine)
 
 
 @app.route("/ste")
@@ -65,14 +65,14 @@ def Bitcoin_Image():
     else:
         return render_template('bitcoin.html', href='static/images/actual_vs_predictions.svg') 
 
-# @app.route("/bitcoin_db", methods = ['GET','POST'])
-# def Bitcoin_Search():
-#     request_type = request.method
-#     if request_type == 'POST':
-#         return "You clicked a button"
-#     else:
-#         k_bitcoin = db.session.query(K_Bitcoin).all()
-#         return render_template('bitcoin_db.html', k_bitcoin=k_bitcoin)        
+@app.route("/bitcoin_db", methods = ['GET','POST'])
+def Bitcoin_Search():
+    request_type = request.method
+    if request_type == 'POST':
+        return "You clicked a button"
+    else:
+        k_bitcoin = db.session.query(K_Bitcoin).all()
+        return render_template('bitcoin_db.html', k_bitcoin=k_bitcoin)        
 
 @app.route("/test_model")
 def test_model():
