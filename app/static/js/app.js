@@ -1,10 +1,13 @@
-// from data.js
-const tableData = data;
+// from Flask
+npm install pg
+
+var data = document.getElementById("mydiv").dataset.kaggle;
+const tableData = data ;
 
 // get table references
 var tbody = d3.select("tbody");
 
-function buildTable(data) {
+function buildTable(kaggle) {
   // First, clear out any existing data
   tbody.html("");
 

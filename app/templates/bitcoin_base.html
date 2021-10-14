@@ -20,6 +20,7 @@
                   </p>
             </div>
         </div>
+        <!-- Database Table shown -->
     <div class="container-fluid btn-dark">
         <div class="row">
           <div class="col-md-3">
@@ -28,7 +29,7 @@
                 <ul class="list-group btn-dark">
                     <li class="btn-dark">
                         <label for="date">Enter Date</label>
-                        <input type="text" placeholder="1/10/2010" id="datetime" />
+                        <input type="text" placeholder="2013-04-20" id="datetime" />
                     </li>
                     <li class="btn-dark">
                         <button id="filter-btn" type="button" class="btn btn-dark">
@@ -42,16 +43,30 @@
             <table class="table table-striped">
                 <thead>
                   <tr>
-                      <th>Date</th>
-                      <th>City</th>
-                      <th>State</th>
-                      <th>Country</th>
-                      <th>Shape</th>
-                      <th>Duration</th>
-                      <th>Comments</th>
+                    <th>Coin</th>
+                    <th>Symbol</th>
+                    <th>Date</th>
+                    <th>High</th>
+                    <th>Low</th>
+                    <th>Open</th>
+                    <th>Close</th>
+                    <th>MarketCap</th>
                   </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody>
+                  {% for row in kaggle %}
+                  <tr>
+                    <td>{{row[1]}}</td>
+                    <td>{{row[2]}}</td>
+                    <td>{{row[3]}}</td>
+                    <td>{{row[4]}}</td>
+                    <td>{{row[5]}}</td>
+                    <td>{{row[6]}}</td>
+                    <td>{{row[7]}}</td>
+                    <td>{{row[9]}}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
             </table>  
           </div>
         </div>
@@ -59,6 +74,6 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
-<script src="static/js/data.js"></script>
+<!-- <script src="static/js/data.js"></script> -->
 <script src="static/js/app.js"></script> 
 {% endblock %}

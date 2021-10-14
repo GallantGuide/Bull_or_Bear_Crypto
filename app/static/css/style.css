@@ -16,4 +16,10 @@ h1 {
     background-image: url('../images/bull_or_bear.jpg');
     background-size: contain;
     text-align: center;
-  }  
+  }
+
+#home-content {
+  display: flex;
+  align-items: center;
+  flex-flow: column;
+}
