@@ -14,7 +14,7 @@ import uuid
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'Heroku_Database_URL'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'Database_URL'
 db = SQLAlchemy(app)
 
 
