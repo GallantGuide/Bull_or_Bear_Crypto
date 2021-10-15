@@ -3,6 +3,7 @@ from joblib import load
 from .functions import make_picture, user_input_np_arr
 from sqlalchemy import Table, MetaData, create_engine
 from flask_sqlalchemy import SQLAlchemy
+import psycopg2
 import pandas as pd
 import numpy as np
 import plotly.express as px
@@ -14,16 +15,16 @@ import os
 
 app = Flask(__name__)
 
-
 db_path = os.getenv('DATABASE_URL')
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
-# app.config['SQLALCHEMY_DATABASE_URI'] = db_path
-# db = SQLAlchemy(app)
 
-db = create_engine(db_path)
+# App connector and Table Data for DB Pulls
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
+app.config['SQLALCHEMY_DATABASE_URI'] = db_path
+db = SQLAlchemy(app)
 
-# # Table Data for DB Pulls
 K_Bitcoin = db.Table('K_BITCOIN', db.metadata, autoload=True, autoload_with=db.engine)
+
+# db = create_engine(db_path)
 
 
 @app.route("/ste")
@@ -75,8 +76,8 @@ def Bitcoin_Search():
     if request_type == 'POST':
         return "You clicked a button"
     else:
-        # k_bitcoin = db.session.query(K_Bitcoin).all()
-        return render_template('bitcoin_db.html')        
+        k_bitcoin = db.session.query(K_Bitcoin).all()
+        return render_template('bitcoin_db.html', k_bitcoin=k_bitcoin)        
 
 @app.route("/test_model")
 def test_model():
