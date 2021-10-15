@@ -35,7 +35,7 @@ def test_template():
     request_type = request.method
     if request_type == 'POST':
         return render_template('index.html')
-    else:
+    if request_type == 'GET':
         return render_template('index.html')   
 
 @app.route("/<param>")
