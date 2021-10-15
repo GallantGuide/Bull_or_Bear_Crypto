@@ -15,9 +15,9 @@ import os
 app = Flask(__name__)
 
 
-db = os.getenv('DATABASEURL')
+db_path = os.getenv('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
-app.config['SQLALCHEMY_DATABASE_URI'] = f'{db}'
+app.config['SQLALCHEMY_DATABASE_URI'] = db_path
 db = SQLAlchemy(app)
 
 
