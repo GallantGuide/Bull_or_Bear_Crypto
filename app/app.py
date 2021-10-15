@@ -29,7 +29,7 @@ K_Ethereum = db.Table('K_ETHEREUM', db.metadata, autoload=True, autoload_with=db
 
 # Default App Route 
 @app.route("/", methods = ['GET','POST'])
-def test_template():
+def tWelcome():
     request_type = request.method
     if request_type == 'GET':
         return render_template('index.html', href='static/images/Base_image.svg')  
@@ -43,17 +43,17 @@ def test_template():
         make_picture(file, model, user_input, path)
         return render_template('index.html', href=path[4:])
 
- # @app.route("/<param>")
-# def url_param(param):
-#     return f'<h1> {param} <h1>'
+@app.route("/<param>")
+def url_param(param):
+    return f'<h1> {param} <h1>'
 
-# @app.route("/test_model")
-# def test_model():
-#     test_np_input = np.array([[1],[2],[17]])
-#     model = load('test_model.joblib')
-#     preds = model.predict(test_np_input)
-#     preds_str = str(preds)
-#     return preds_str
+@app.route("/test_model")
+def test_model():
+    test_np_input = np.array([[1],[2],[17]])
+    model = load('test_model.joblib')
+    preds = model.predict(test_np_input)
+    preds_str = str(preds)
+    return preds_str
 
 # Images and plots
 @app.route("/bitcoin", methods = ['GET','POST'])
@@ -70,20 +70,20 @@ def Bitcoin_Image():
         return render_template('bitcoin.html', href='static/images/actual_vs_predictions.svg')       
 
 
-# @app.route("/site", methods = ['GET','POST'])
-# def test_template():
-#     request_type = request.method
-#     if request_type == 'POST':
-#         text = request.form['text']
-#         random_string = uuid.uuid4().hex
-#         file = 'app/static/AgesAndHeights.pkl'
-#         model = load('app/test_model.joblib')
-#         user_input = user_input_np_arr(text)
-#         path = 'app/static/predictions' + random_string + '.svg'
-#         make_picture(file, model, user_input, path)
-#         return render_template('index.html', href=path[4:])
-#     else:
-#         return render_template('index.html', href='static/images/Base_image.svg') 
+@app.route("/site", methods = ['GET','POST'])
+def test_site():
+    request_type = request.method
+    if request_type == 'POST':
+        text = request.form['text']
+        random_string = uuid.uuid4().hex
+        file = 'app/static/AgesAndHeights.pkl'
+        model = load('app/test_model.joblib')
+        user_input = user_input_np_arr(text)
+        path = 'app/static/predictions' + random_string + '.svg'
+        make_picture(file, model, user_input, path)
+        return render_template('site.html', href=path[4:])
+    else:
+        return render_template('site.html', href='static/images/Base_image.svg') 
 
 
 
