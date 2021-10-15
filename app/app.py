@@ -8,18 +8,21 @@ import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 import uuid
+import os
 
 
 
 app = Flask(__name__)
 
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
-# app.config['SQLALCHEMY_DATABASE_URI'] = f'{DATABASE_URL}'
-# db = SQLAlchemy(app)
+
+db = os.getenv('DATABASEURL')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
+app.config['SQLALCHEMY_DATABASE_URI'] = f'{db}'
+db = SQLAlchemy(app)
 
 
-# # # Table Data for DB Pulls
-# K_Bitcoin = db.Table('K_BITCOIN', db.metadata, autoload=True, autoload_with=db.engine)
+# # Table Data for DB Pulls
+K_Bitcoin = db.Table('K_BITCOIN', db.metadata, autoload=True, autoload_with=db.engine)
 
 
 @app.route("/ste")
