@@ -16,10 +16,11 @@ app = Flask(__name__)
 
 
 db_path = os.getenv('DATABASE_URL')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
-app.config['SQLALCHEMY_DATABASE_URI'] = db_path
-db = SQLAlchemy(app)
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
+# app.config['SQLALCHEMY_DATABASE_URI'] = db_path
+# db = SQLAlchemy(app)
 
+db = create_engine(db_path)
 
 # # Table Data for DB Pulls
 K_Bitcoin = db.Table('K_BITCOIN', db.metadata, autoload=True, autoload_with=db.engine)
