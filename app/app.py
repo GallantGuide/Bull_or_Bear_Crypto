@@ -11,8 +11,6 @@ import plotly.graph_objects as go
 import uuid
 import os
 
-
-
 app = Flask(__name__)
 
 db_path = os.getenv('DATABASE_URL')
@@ -33,10 +31,17 @@ K_Ethereum = db.Table('K_ETHEREUM', db.metadata, autoload=True, autoload_with=db
 @app.route("/", methods = ['GET','POST'])
 def test_template():
     request_type = request.method
-    if request_type == 'POST':
-        return render_template('index.html')
     if request_type == 'GET':
-        return render_template('index.html')   
+        return render_template('site.html'', href='static/images/Base_image.svg')   
+    if request_type == 'POST':
+        text = request.form['text']
+        random_string = uuid.uuid4().hex
+        file = 'app/static/AgesAndHeights.pkl'
+        model = load('app/test_model.joblib')
+        user_input = user_input_np_arr(text)
+        path = 'app/static/predictions' + random_string + '.svg'
+        make_picture(file, model, user_input, path)
+        return render_template('site.html', href=path[4:])
 
 # @app.route("/<param>")
 # def url_param(param):
