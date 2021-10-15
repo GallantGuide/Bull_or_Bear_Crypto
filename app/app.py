@@ -21,8 +21,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = db_path
 db = SQLAlchemy(app)
 
 K_Bitcoin = db.Table('K_BITCOIN', db.metadata, autoload=True, autoload_with=db.engine)
-K_Cardano = db.Table('K_CARDANO', db.metadata, autoload=True, autoload_with=db.engine)
-K_Ethereum = db.Table('K_ETHEREUM', db.metadata, autoload=True, autoload_with=db.engine)
+# K_Cardano = db.Table('K_CARDANO', db.metadata, autoload=True, autoload_with=db.engine)
+# K_Ethereum = db.Table('K_ETHEREUM', db.metadata, autoload=True, autoload_with=db.engine)
 # Ethereum = db.Table('K_BITCOIN', db.metadata, autoload=True, autoload_with=db.engine)
 # Cardnamo = db.Table('K_BITCOIN', db.metadata, autoload=True, autoload_with=db.engine)
 
@@ -32,7 +32,7 @@ K_Ethereum = db.Table('K_ETHEREUM', db.metadata, autoload=True, autoload_with=db
 def test_template():
     request_type = request.method
     if request_type == 'GET':
-        return render_template('site.html'', href='static/images/Base_image.svg')   
+        return render_template('site.html', href='static/images/Base_image.svg')   
     if request_type == 'POST':
         text = request.form['text']
         random_string = uuid.uuid4().hex
@@ -81,9 +81,9 @@ def test_template():
         user_input = user_input_np_arr(text)
         path = 'app/static/predictions' + random_string + '.svg'
         make_picture(file, model, user_input, path)
-        return render_template('site.html', href=path[4:])
+        return render_template('index.html', href=path[4:])
     else:
-        return render_template('site.html', href='static/images/Base_image.svg') 
+        return render_template('index.html', href='static/images/Base_image.svg') 
 
 
 
@@ -103,8 +103,8 @@ def Cardano_Search():
     if request_type == 'POST':
         return "You clicked a button"
     else:
-        k_cardano = db.session.query(K_Cardano).all()
-        return render_template('cardano_db.html', k_cardano=k_cardano)
+        # k_cardano = db.session.query(K_Cardano).all()
+        return render_template('cardano_db.html')
         
 @app.route("/ethereum_db", methods = ['GET','POST'])
 def Ethereum_Search():
@@ -112,5 +112,5 @@ def Ethereum_Search():
     if request_type == 'POST':
         return "You clicked a button"
     else:
-        k_ethereum = db.session.query(K_Ethereum).all()
-        return render_template('ethereum_db.html', k_ethereum=k_ethereum)
+        # k_ethereum = db.session.query(K_Ethereum).all()
+        return render_template('ethereum_db.html')
