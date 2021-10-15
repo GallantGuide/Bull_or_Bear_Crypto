@@ -38,9 +38,9 @@ def test_template():
     if request_type == 'GET':
         return render_template('index.html')   
 
-@app.route("/<param>")
-def url_param(param):
-    return f'<h1> {param} <h1>'
+# @app.route("/<param>")
+# def url_param(param):
+#     return f'<h1> {param} <h1>'
 
 @app.route("/test_model")
 def test_model():
