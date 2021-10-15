@@ -21,8 +21,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = db_path
 db = SQLAlchemy(app)
 
 K_Bitcoin = db.Table('K_BITCOIN', db.metadata, autoload=True, autoload_with=db.engine)
-# K_Cardano = db.Table('K_CARDANO', db.metadata, autoload=True, autoload_with=db.engine)
-# K_Ethereum = db.Table('K_ETHEREUM', db.metadata, autoload=True, autoload_with=db.engine)
+K_Cardano = db.Table('K_CARDANO', db.metadata, autoload=True, autoload_with=db.engine)
+K_Ethereum = db.Table('K_ETHEREUM', db.metadata, autoload=True, autoload_with=db.engine)
 # Ethereum = db.Table('K_BITCOIN', db.metadata, autoload=True, autoload_with=db.engine)
 # Cardnamo = db.Table('K_BITCOIN', db.metadata, autoload=True, autoload_with=db.engine)
 
@@ -97,20 +97,20 @@ def Bitcoin_Search():
         k_bitcoin = db.session.query(K_Bitcoin).all()
         return render_template('bitcoin_db.html', k_bitcoin=k_bitcoin)         
 
-# @app.route("/cardano_db", methods = ['GET','POST'])
-# def Cardano_Search():
-#     request_type = request.method
-#     if request_type == 'POST':
-#         return "You clicked a button"
-#     else:
-#         # k_cardano = db.session.query(K_Cardano).all()
-#         return render_template('cardano_db.html')
+@app.route("/cardano_db", methods = ['GET','POST'])
+def Cardano_Search():
+    request_type = request.method
+    if request_type == 'POST':
+        return "You clicked a button"
+    else:
+        k_cardano = db.session.query(K_Cardano).all()
+        return render_template('cardano_db.html', k_cardano=k_cardano)
         
-# @app.route("/ethereum_db", methods = ['GET','POST'])
-# def Ethereum_Search():
-#     request_type = request.method
-#     if request_type == 'POST':
-#         return "You clicked a button"
-#     else:
-#         # k_ethereum = db.session.query(K_Ethereum).all()
-#         return render_template('ethereum_db.html')
+@app.route("/ethereum_db", methods = ['GET','POST'])
+def Ethereum_Search():
+    request_type = request.method
+    if request_type == 'POST':
+        return "You clicked a button"
+    else:
+        k_ethereum = db.session.query(K_Ethereum).all()
+        return render_template('ethereum_db.html', k_ethereum=k_ethereum)
