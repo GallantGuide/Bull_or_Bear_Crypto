@@ -1,81 +1,17 @@
 {% extends "base.html" %}
-{% block title %} Home Page {% endblock %}
+{% block title %} Test Site {% endblock %}
 
 {% block content %}
-<div class="wrapper">
-    <div class="jumbotron">
-        <h1 class="display-4"> Welcome </h1>
-      </div>
-      <div class="container-fluid">
-        <div class="row">
-            <br class="col-md-3">
-                <h3> Site Links </h3> <br></br> <small> Readme </small></h3>
-            </div>
-             <div class="col-md-9" > 
-                <h2> Welcome to Bull or Bear Crypto Available Routes: </h2>
-                <h3>site</h3>
-                <h3>test_site</h3>
-                <h3>test_model</h3>
-                <h3>hello_world</h3>
-                <h3>index_base</h3>
-                <form method="POST">
-                    <p> Site to visit: </p>
-                    <p><input type ="text" name="url" /></p>
-                    <p><input type ="submit" value="submit" /></p>
-                </form>
-            </div>
-        </div>
-        
-        <!-- Database Table shown -->
-    <div class="container-fluid btn-dark">
-        <div class="row">
-          <div class="col-md-3">
-            <h2>
-                Topic
-            </h2>
-          </div>
-          <div class="col-md-9">
-            <p>
-            We are interested in analyzing what factors are correlated with the prices of cryptocurrencies over time, and whether these factors can be used to predict the future prices of these currencies.
-            </p>
-          </div>
-        </div>
-      </div> 
-     
-      <div class="container-fluid btn-dark">
-        <div class="row">
-          <div class="col-md-3">
-            <h2>
-                Justification
-            </h2>
-          </div>
-          <div class="col-md-9">
-            <p>
-            Cryptocurrencies are of great interest to the finance community right now.  Their possible impacts on the global economy are being investigated, and it seems likely that some form of block chain currency will be adopted by nations, [including the US] as official currencies.  Currently, these currencies can be traded on the stock market and show marked volatility as their underlying worth is unclear.  Being able to predict what factors influence cryptocurrency prices could be a key factor is understating why they are so volatile and what could be done to help stabilize them enough to be used an official currency.  It is also of great interest to investors to be able to predict the behavior of these coins and take advantage of these predictions to grow investment accounts.
-            </p>
-          </div>
-        </div>
-      </div>  
-
-      <div class="container-fluid btn-dark">
-        <div class="row">
-          <div class="col-md-3">
-            <h2>
-                Target Questions
-            </h2>
-          </div>
-          <div class="col-md-9">
-            <p>
-                - Is cryptocurrency behavior correlated between different coins?  I.e. Do they all increase and decrease together?
-                - What predicts cryptocurrency behavior?
-                - Overall market behavior
-                - Behavior of commodities (e.g. Gold)
-                - Posts about the currencies on social media (e.g. reddit and twitter)
-                - How far into the future are predictions about cryptocurrency behavior accurate?
-            </p>
-          </div>
-        </div>
-      </div>  
- </div>
+<div class="jumbotron">
+    <h1 class="display-4"> Test_site_Config </h1>
+</div>
+<center>
+    <img src = "{{ href }}" height=600 />
+    <form method="POST">
+        <label>Input a comma-separated list of age values: </label>
+        <input type ='text' name = 'data'>
+        <input type="submit">
+    </form>
+</center>
 
 {% endblock %}
