@@ -74,7 +74,7 @@ def Bitcoin_Image():
 def test_site():
     request_type = request.method
     if request_type == 'POST':
-        text = request.form['text']
+        text = request.form['data']
         random_string = uuid.uuid4().hex
         file = 'app/static/AgesAndHeights.pkl'
         model = load('app/test_model.joblib')
