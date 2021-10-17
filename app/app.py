@@ -79,7 +79,7 @@ def test_site():
         file = 'app/static/AgesAndHeights.pkl'
         model = load('app/test_model.joblib')
         user_input = user_input_np_arr(text)
-        path = 'app/static/predictions' + random_string + '.svg'
+        path = 'static/images/predictions' + random_string + '.svg'
         make_picture(file, model, user_input, path)
         return render_template('site.html', href=path[4:])
     else:
