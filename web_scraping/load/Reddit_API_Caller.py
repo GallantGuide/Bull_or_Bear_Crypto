@@ -52,6 +52,7 @@ def fetch_reddit_data(sia, start, end, coin, restrict_score = '>0', size = 50, f
         return [titler(post) for post in posts if post['title'] not in titles]
     
     def get_english_posts(posts):
+        """Given a set of posts, returns only English posts."""
         english_posts = []
 
         for post in posts:
@@ -60,6 +61,7 @@ def fetch_reddit_data(sia, start, end, coin, restrict_score = '>0', size = 50, f
         return english_posts
                 
     def get_sentiment(posts, sia):
+        """Given a set of posts, runs sentiment analysis on the titles and returns the posts with the analysis."""
         for post in posts:
             post['sentiment_scores'] = sia.polarity_scores(post['title'])
         return posts

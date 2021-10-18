@@ -5,12 +5,14 @@
 */checkpoints/*
 checkpoints/*
 
+# don't upload credentials
+config.py
+
 ## Don't save the mac folder files
 .DS_Store
 
 
 ## flask
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

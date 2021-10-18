@@ -8,7 +8,7 @@ import langid
 #package for sentiment analysis
 from nltk.sentiment.vader import SentimentIntensityAnalyzer as SIA
 
-def fetch_reddit_data(sia, start, end, coin, restrict_score = '>0', size = 50, fields = [
+def fetch_reddit_data(sia, start, end, coin, restrict_score = '>0', size = 500, fields = [
     'num_comments', 'title', 'score', 'upvote_ratio', 'subreddit']):
     """
     Given sentiment analyzer, a date range and coin:
