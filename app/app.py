@@ -40,7 +40,12 @@ def tWelcome():
 
 @app.route("/<param>")
 def url_param(param):
-    return render_template('index.html')
+    request_type = request.method
+    if request_type == 'GET':
+        return render_template('index.html')  
+    if request_type == 'POST':
+        url_param = request.form["url"]
+        return redirect(url_for("url_param",param=url_param))
 
 @app.route("/test_model")
 def test_model():
@@ -72,13 +77,13 @@ def site_template():
         text = request.form['text']
         random_string = uuid.uuid4().hex
         file = 'app/static/AgesAndHeights.pkl'
-        model = load('app/test_model.joblib')
+        model = load('app/static/test_model.joblib')
         user_input = user_input_np_arr(text)
-        path = 'app/static/' + random_string + '.svg'
+        path = 'app/static/uuid/' + random_string + '.svg'
         make_picture(file, model, user_input, path)
-        return render_template('index.html', href=path[4:])
+        return render_template('site.html', href=path)
     else:
-        return render_template('index.html', href='static/Base_image.svg')  
+        return render_template('site.html', href='static/Base_image.svg')  
 
 
 
