@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request,redirect, url_for
 from joblib import load
 from .functions import make_picture, user_input_np_arr
 from sqlalchemy import Table, MetaData, create_engine
@@ -32,16 +32,11 @@ K_Ethereum = db.Table('K_ETHEREUM', db.metadata, autoload=True, autoload_with=db
 def tWelcome():
     request_type = request.method
     if request_type == 'GET':
-        return render_template('index.html', href='static/images/Base_image.svg')  
+        return render_template('index.html')  
     if request_type == 'POST':
-        text = request.form['text']
-        random_string = uuid.uuid4().hex
-        file = 'app/static/AgesAndHeights.pkl'
-        model = load('app/test_model.joblib')
-        user_input = user_input_np_arr(text)
-        path = 'app/static/predictions' + random_string + '.svg'
-        make_picture(file, model, user_input, path)
-        return render_template('index.html', href=path[4:])
+        url_param = request.form["url"]
+        return redirect(url_for("url_param",param=url_param))
+
 
 @app.route("/<param>")
 def url_param(param):
@@ -71,19 +66,19 @@ def Bitcoin_Image():
 
 
 @app.route("/site", methods = ['GET','POST'])
-def test_site():
+def site_template():
     request_type = request.method
     if request_type == 'POST':
-        text = request.form['data']
+        text = request.form['text']
         random_string = uuid.uuid4().hex
         file = 'app/static/AgesAndHeights.pkl'
         model = load('app/test_model.joblib')
         user_input = user_input_np_arr(text)
-        path = 'static/images/predictions' + random_string + '.svg'
+        path = 'app/static/' + random_string + '.svg'
         make_picture(file, model, user_input, path)
-        return render_template('site.html', href=path[4:])
+        return render_template('index.html', href=path[4:])
     else:
-        return render_template('site.html', href='static/images/Base_image.svg') 
+        return render_template('index.html', href='static/Base_image.svg')  
 
 
 
