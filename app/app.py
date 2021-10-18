@@ -74,7 +74,7 @@ def Bitcoin_Image():
 def site_template():
     request_type = request.method
     if request_type == 'POST':
-        text = request.form['text']
+        text = request.form['data']
         random_string = uuid.uuid4().hex
         file = 'app/static/AgesAndHeights.pkl'
         model = load('app/static/test_model.joblib')
@@ -83,7 +83,7 @@ def site_template():
         make_picture(file, model, user_input, path)
         return render_template('site.html', href=path)
     else:
-        return render_template('site.html', href='static/Base_image.svg')  
+        return render_template('site.html', href='static/images/Base_image.svg')  
 
 
 
