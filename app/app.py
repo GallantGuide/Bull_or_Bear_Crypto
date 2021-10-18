@@ -138,3 +138,7 @@ def Ethereum_Search():
     else:
         k_ethereum = db.session.query(K_Ethereum).all()
         return render_template('ethereum_db.html', k_ethereum=k_ethereum)    
+
+# Local site app config 
+# if __name__ == "__main__":
+#     app.run(debug=True)        
