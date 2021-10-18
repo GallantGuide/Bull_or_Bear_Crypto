@@ -1,6 +1,6 @@
 # Bull or Bear Crypto
 
-Using machine learning to forecast cryptocurrency prices
+*Using machine learning to forecast cryptocurrency prices*
 
 ## Overview
 
