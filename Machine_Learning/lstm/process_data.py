@@ -73,7 +73,7 @@ def loss_plot(history, title):
     ax.xaxis.label.set_color('white')
     ax.yaxis.label.set_color('white')
     ax.tick_params(axis='both', colors='white')
-    plt.savefig(f"Loss_{title}.png")
+    plt.savefig(f"images/Loss_{title}.png")
     plt.show()
 
 def accuracy_vs_prediction_plot(predictions, actual, title):
