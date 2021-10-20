@@ -243,5 +243,13 @@ After evaluating these results, we concluded that we need a more robust model. T
 #### LSTM
 
 ### What we would implement in the future
+- Add financial data and comments for more promising coins
+- Add filters for the sql data tables on the Flask Website
+- Gather Twitter data (cheaply) over time
+- Reformat, filter, and restructure mongo data to allow for more efficient data processing  
+- Implement a Random Forest Model and other ML models to se if an LSTM model is the best option
 
-### Things we would have done differently if we had to do this project again
+### Things we would do differently if we did this project again
+- Focus more on the database upfront to push the whole project forward earlier.
+- Look up API requirements and prices at the very start.
+- Go in with better expectations of the time required to do each section of the project.
