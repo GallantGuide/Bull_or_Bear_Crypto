@@ -14,8 +14,8 @@ import os
 
 app = Flask(__name__)
 
-db_path = os.getenv('DATABASE_URL')
-
+# db_path = os.getenv('DATABASE_URL')
+db_path = 'postgresql://postgres:umiami17@crypto.cbzxnt6iwq2t.us-east-2.rds.amazonaws.com:5432/postgres'
 
 # App connector and Table Data for DB Pulls
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
@@ -138,5 +138,5 @@ def Ethereum_Search():
         return render_template('ethereum_db.html', k_ethereum=k_ethereum)    
 
 # # Local site app config 
-# if __name__ == "__main__":
-#     app.run(debug=True)        
+if __name__ == "__main__":
+    app.run(debug=True)        

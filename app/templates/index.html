@@ -101,9 +101,21 @@
             </h2>
           </div>
           <div class="col-md-9">
-            <h5>   
-              <img src = "{{ dref1 }}" height=600 />
-            </h5>
+            <p>   
+              PostgreSQL is used to store the data from Kaggle and Yahoo Finance, while the databases are host in AWS, see below for ERD.
+            </p>
+            <img src = "{{ dref1 }}" class="model-image" />
+            <p>
+              MongoDB is used to store the Reddit posts. We use MongoDB compass for local administering of data, and MongoDB Altas hosts the database. The database was structured as shown below:
+            </p> 
+            <ul>
+              <li>Reddit Comments</li>
+              <ul>
+                <li>Bitcoin</li>
+                <li>Ethereum</li>
+                <li>Cardano</li>
+              </ul>
+            </ul>
           </div>
         </div>
       </div>
@@ -112,22 +124,61 @@
         <div class="row">
           <div class="col-md-3">
             <h2>
-              Prophet model
+              Exploratory Model
             </h2>
           </div>
           <div class="col-md-9">
+            <h2> Prophet Model</h2>
             <p>
-              The goal was to create a machine learning model using facebook's prophet library in order to predict the price of bitcoin and some other altcoins. The way to go around this problem was to first extract the data from kaggle. We used bitcoin, ethereum, and cardano's cryptocurrencies to store them in our database. Then, we extracted the data to the jupyter notebooks to run the models The raw data came in CSVs of 10 columns and as many rows as days of lifetime for each coin. see below for models    
+              We use a basic machine learning model from the prophet library to see how well price data over time alone can predict future prices and how ar in the future the predictions appear to be accurate. Prophet uses time and price information to predict future prices.   
             </p>
             <ul>
-              <li>Prophet model components</li>
-              <li><img src = "{{ href1 }}" height=300 /></li>
-              <li>Prophet model Graph</li>
-              <li><img src = "{{ href2 }}" height=300 /></li>
+              <li>Yearly, monthly, and weekly components for Bitcoin predictions</li>
+              <li><img src = "{{ href1 }}" class="model-image"/></li>
+              <li>Bitcoin prediction accuracy for 2021 using data ending in 2020, where y is real price and yhat is the model-predicted price.</li>
+              <li><img src = "{{ href2 }}" class="model-image"/></li>
             </ul>
           </div>
         </div>
       </div>
+
+      <div class="container-fluid btn-dark">
+        <div class="row">
+          <div class="col-md-3">
+            <h2> Final Model </h2>
+          </div>
+          <div class="col-md-9">
+            <h2> LSTM Neural Network Model </h2>
+            <p>
+              We needed a model that could handle the time aspect of price changes while incorporating far more features than the prophet model limited us to. A Long Short-Term Memory model seemed like the obvious choice. Although this model would take longer to train than a random forest (for example), it was able to consider a time window’s worth of data to make a decision on the future price. Furthermore, this type of model is designed for handling data with a time component. The model choice did not change between sections 2 and 3. This is a regression model, not a classification model, so there is no confusion matrix. The accurary score was always zero, because the model almost nerver perfectly predicted the next day's price. 
+            </p>
+            <h4> Features </h4>
+            <p>
+              For feature engineering, see the pre-processing and post-processing sections above. Our exploratory analysis had shown that market behavior alone is not produce a good predictive model. For this model, we chose to retest the market possibility with more market data (e.g. volume traded). We also want to see if how a coin is talked about on social media affects its price. Finally, we think that the best model would be one that incorporated both price and market data. The features under these categories are as follows:
+            </p>
+            <ul>
+              <li>Market Features</li>
+              <ul>
+                <li>Opening price</li>
+                <li>High price for the day</li>
+                <li>Low price for the day</li>
+                <li>volume traded</li>
+              </ul>
+            </ul>
+            <ul>
+              <li>Reddit Features</li>
+              <ul>
+                <li>Number of posts</li>
+                <li>Average number of comments per post</li>
+                <li>Average score per post</li>
+                <li>Average compound sentiment score</li>
+              </ul>
+            </ul>
+            <p> The target for the LSTM models was the closing price. See crypto-coin pages for graphs and statistics.</p>
+          </div>
+        </div>
+      </div>
+
 
  </div>
 
