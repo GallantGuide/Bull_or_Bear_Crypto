@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block title %} Bitcoin LSTM Models {% endblock %}
+
+{% block content %}
+<div class="wrapper">
+    <div class="jumbotron">
+        <h1 class="display-4"> Bitcoin LSTM Models </h1>
+    </div>        
+         <!-- Site info -->
+         <div class="container-fluid btn-dark">
+            <div class="row">
+                <div class="col-md-3">
+                    <h2>
+                        Overview
+                    </h2>
+                </div>
+                <div class="col-md-9">
+                    <p>
+                        The figures below depict the outcomes of long short-term memory neural networks using the features specified in each model’s figure caption to predict the future closing prices for a cryptocurrency.  Each model takes seven consecutive days’ worth of information to predict the price one week in the future from the last day in the input data.  Models were trained on the 75% of the data set (the earliest days) and then tested against the final 25% (the most recent days).  Each graph shows the actual price value plotted against the predicted value.  Dots on the red line (slope = 1) are cases where the prediction matched the real value.  Dots above the line are cases where the actual price was higher than predicted.  Dots below the line are cases where the actual price was lower than predicted.
+                    </p>
+                </div>
+            </div>
+        </div>   
+        
+        
+        <div class="container-fluid btn-dark">
+            <div class="row">
+                <div class="col-md-3">
+                    <h2>
+                        Market Data
+                    </h2>
+                </div>
+                <div class="col-md-9 image-holder">
+                    <img src="{{ href1 }}" class="model-image"/>
+                </div>
+            </div>
+        </div> 
+                
+        <div class="container-fluid btn-dark">
+            <div class="row">
+                <div class="col-md-3">
+                    <h2>
+                        Topic
+                    </h2>
+                </div>
+                <div class="col-md-9">
+                    <p>
+                        The actual and predicted dollar value for this cryptocurrency when using only market data from Yahoo Finance as the model features.  The features included opening price, high price for the day, low price for the day, and volume traded.
+                    </p>
+                </div>
+            </div>
+        </div> 
+        
+        <div class="container-fluid btn-dark">
+            <div class="row">
+                <div class="col-md-3">
+                    <h2>
+                        Reddit Data
+                    </h2>
+                </div>
+                <div class="col-md-9 image-holder">
+                    <img src = "{{ href2 }}" class="model-image" />
+                </div>
+            </div>
+        </div>   
+            
+        <div class="container-fluid btn-dark">
+            <div class="row">
+                <div class="col-md-3">
+                    <h2>
+                        Topic
+                    </h2>
+                  </div>
+                  <div class="col-md-9">
+                    <p>
+                        The actual and predicted dollar value for this cryptocurrency when using only post data from Reddit as the model features.  The features included the number of posts, average number of comments per post, average score per post, and average compound sentiment score for post titles for the day.  The compound sentiment score is a combination of how positive, negative, and neutral the post’s title was.  A score of 1 is a fully positive title, while a score of 0 is a fully neutral title, and a score of -1 is a fully negative title.
+                    </p>
+                </div>
+            </div>
+        </div> 
+              
+        <div class="container-fluid btn-dark">
+            <div class="row">
+                <div class="col-md-3">
+                    <h2>
+                        All Data 
+                    </h2>
+                </div>
+                <div class="col-md-9 image-holder">
+                    <img src = "{{ href3 }}" class="model-image"/>
+                </div>
+            </div>
+        </div>   
+        
+        <div class="container-fluid btn-dark">
+            <div class="row">
+                <div class="col-md-3">
+                    <h2>
+                        Topic
+                    </h2>
+                </div>
+                <div class="col-md-9">
+                    <p>
+                        The actual and predicted dollar value for this cryptocurrency when using all features for the market data and Reddit data as described above.
+                    </p>
+                </div>
+            </div>
+        </div>   
+</div>
+{% endblock %}

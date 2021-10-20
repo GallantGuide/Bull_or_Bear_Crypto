@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+<<<<<<< HEAD
 {% block title %} Test Site {% endblock %}
 
 {% block content %}  
@@ -11,3 +12,235 @@
     </form>
 </center>
 {% endblock %}
+=======
+{% block title %} Home Page {% endblock %}
+
+{% block content %}
+<div class="wrapper">
+    <div class="jumbotron">
+        <h1 class="display-4"> Welcome </h1>
+    </div>
+    <!-- <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-3">
+              <h3> Site Links </h3> <small> Readme </small>
+          </div>    
+            <div class="col-md-9" > 
+              <form method="POST">
+                  <h3> Site to visit: </h3>
+                  <p><input type ="text" name="url" /></p>
+                  <p><input type ="submit" value="submit" /></p>
+              </form>
+            </div>
+        </div>
+    </div>   -->
+        <!-- Read me info -->
+    <div class="container-fluid btn-dark">
+        <div class="row">
+          <div class="col-md-3">
+            <h2>
+                Topic
+            </h2>
+          </div>
+          <div class="col-md-9">
+            <p>
+            We are interested in analyzing what factors are correlated with the prices of cryptocurrencies over time, and whether these factors can be used to predict the future prices of these currencies.
+            </p>
+          </div>
+        </div>
+      </div> 
+     
+      <div class="container-fluid btn-dark">
+        <div class="row">
+          <div class="col-md-3">
+            <h2>
+                Justification
+            </h2>
+          </div>
+          <div class="col-md-9">
+            <p>
+              Cryptocurrencies are of great interest to the finance community right now.  Their possible impacts on the global economy are being investigated, and it seems likely that some form of block chain currency will be adopted by nations, as official currencies.  Currently, these currencies can be traded on the stock market and show marked volatility as their underlying worth is unclear.  Being able to predict what factors influence cryptocurrency prices could be a key factor is understating why they are so volatile and what could be done to help stabilize them enough to be used an official currency.  It is also of great interest to investors to be able to predict the behavior of these coins and take advantage of these predictions to grow investment accounts.
+            </p>
+          </div>
+        </div>
+      </div>  
+
+      <div class="container-fluid btn-dark">
+        <div class="row">
+          <div class="col-md-3">
+            <h2>
+                Target Questions
+            </h2>
+          </div>
+          <div class="col-md-9">
+            <p>
+              <ul>
+                <li> What predicts cryptocurrency behavior?</li>
+                <ul>
+                  <li> Past currency behavior?</li>
+                  <li> Posts about the currencies on social media (e.g. reddit and twitter)?</li>
+                </ul>
+                <li> How far into the future are predictions about cryptocurrency behavior accurate?</li>    
+              </ul>    
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="container-fluid btn-dark">
+        <div class="row">
+          <div class="col-md-3">
+            <h2>
+              Pre-processing
+            </h2>
+          </div>
+          <div class="col-md-9">
+            <p>
+              All preprocessing is done in Python.
+              <ul>
+                <li> The Kaggle data is clean and required no preprocessing.</li>
+                <li> The Yahoo Finance data is scraped from Yahoo Finance in groups of 100.  These groups are then combined and sorted by date.  No other processing is required.</li>
+                <li> For the Reddit data, posts are pulled from an API.  Posts that are not in English (as identified by langid) are dropped.  Posts with duplicate titles are dropped.  Finally, the NLTK library is used to run a sentiment analysis on the post title and the sentiment data (positive, negative, neutral, composite) is added to each post.</li>
+              </ul>    
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="container-fluid btn-dark">
+        <div class="row">
+          <div class="col-md-3">
+            <h2>
+              Database
+            </h2>
+          </div>
+          <div class="col-md-9">
+            <p>   
+              PostgreSQL is used to store the data from Kaggle and Yahoo Finance, while the databases are host in AWS, see below for ERD.
+            </p>
+            <img src = "{{ dref1 }}" class="model-image" />
+            <p>
+              MongoDB is used to store the Reddit posts. We use MongoDB compass for local administering of data, and MongoDB Altas hosts the database. The database was structured as shown below:
+            </p> 
+            <ul>
+              <li>Reddit Comments</li>
+              <ul>
+                <li>Bitcoin</li>
+                <li>Ethereum</li>
+                <li>Cardano</li>
+              </ul>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="container-fluid btn-dark">
+        <div class="row">
+          <div class="col-md-3">
+            <h2>
+              Exploratory Model
+            </h2>
+          </div>
+          <div class="col-md-9">
+            <h2> Prophet Model</h2>
+            <p>
+              We use a basic machine learning model from the prophet library to see how well price data over time alone can predict future prices and how ar in the future the predictions appear to be accurate. Prophet uses time and price information to predict future prices.   
+            </p>
+            <ul>
+              <li>Yearly, monthly, and weekly components for Bitcoin predictions</li>
+              <li><img src = "{{ href1 }}" class="model-image"/></li>
+              <li>Bitcoin prediction accuracy for 2021 using data ending in 2020, where y is real price and yhat is the model-predicted price.</li>
+              <li><img src = "{{ href2 }}" class="model-image"/></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="container-fluid btn-dark">
+        <div class="row">
+          <div class="col-md-3">
+            <h2> Final Model </h2>
+          </div>
+          <div class="col-md-9">
+            <h3> LSTM Neural Network Model </h3>
+            <p>
+              We needed a model that could handle the time aspect of price changes while incorporating far more features than the prophet model limited us to. A Long Short-Term Memory model seemed like the obvious choice. Although this model would take longer to train than a random forest (for example), it was able to consider a time window’s worth of data to make a decision on the future price. Furthermore, this type of model is designed for handling data with a time component. The model choice did not change between sections 2 and 3. This is a regression model, not a classification model, so there is no confusion matrix. The accurary score was always zero, because the model almost nerver perfectly predicted the next day's price. 
+            </p>
+            <h4> Features </h4>
+            <p>
+              For feature engineering, see the pre-processing and post-processing sections above. Our exploratory analysis had shown that market behavior alone is not produce a good predictive model. For this model, we chose to retest the market possibility with more market data (e.g. volume traded). We also want to see if how a coin is talked about on social media affects its price. Finally, we think that the best model would be one that incorporated both price and market data. The features under these categories are as follows:
+            </p>
+            <ul>
+              <li>Market Features</li>
+              <ul>
+                <li>Opening price</li>
+                <li>High price for the day</li>
+                <li>Low price for the day</li>
+                <li>volume traded</li>
+              </ul>
+            </ul>
+            <ul>
+              <li>Reddit Features</li>
+              <ul>
+                <li>Number of posts</li>
+                <li>Average number of comments per post</li>
+                <li>Average score per post</li>
+                <li>Average compound sentiment score</li>
+              </ul>
+            </ul>
+            <p> The target for the LSTM models was the closing price. See crypto-coin pages for graphs and statistics.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="container-fluid btn-dark">
+        <div class="row">
+          <div class="col-md-3">
+            <h2> Conclusions </h2>
+          </div>
+          <div class="col-md-9">
+            <h3> Prophet </h3>
+            <p>
+              The predictions for Bitcoin in 2021 were not accurate at all. This is due to the fact that in 2020-2021 there was a strong and unexpected surge in cryptocurrencies as a whole. This surge could be associated with COVID-19, as the global economy and government's ability to manage the situation inspired doubt in the mainstream market. Many people started relying on/trusting in a decentralized monetary system. Not only that, but many countries and entities are beginning to trust these coins, and this pushed a lot more people to invest in them. Again, the results for 2022 could not be evaluated, as they were based on the unknown future (2022). We use them to visualize the trend in crypto's price and display the steep slope many investors base their bullish predictions on.
+            </p>
+            <p>
+              After evaluating these results, we concluded that we need a more robust model. The Prophet model was not accurate at all because it was impossible for it to predict the sudden increase of Bitcoin at the end of 2020 and into 2021 using basic statistical predictions on the price. There are many other factors that affect cryptocurrencies, such as politics, volume, social media, influencers, other altcoins, crypto new utilities and innovations, adoption, etc.
+            </p>
+            <h3> LSTM </h3>
+            <p>
+              For all coins, using reddit data alone was not sufficient for making accurate predictions. The predictions were immensely underestimated and, in some cases, clustered into vertical columns rather than a scatter or a line alone x=1. This suggests that there is not enough variation in the Reddit post features to appropriately spread the data across the price range or account for future price increases.
+            </p>
+            <p>
+              Using the market data alone led to better results for all coins. At least at lower prices, the estimates were more likely to be around the slope of 1 line, and for Cadrano and Ethereum, the models did try to predict higher price values. In fact, those two models showed show overestimating prices in some cases. The Bitcoin market data model, however, showed the least amount of improvement over the Reddit posts only model. It hugged the red line at first, then greatly underestimated the prices.
+            </p>
+            <p>
+              For Bitcoin and Ethereum, using both Reddit posts and market data provided the bets models. The predictions were scattered more closely to the red line and the range of predictions more closely mimic the range of actual values. Interestingly, for Cardano the market data only model was superior to the model with both market data and Reddit data. Cardano is a less well-known coin and there were fewer Reddit posts about it. It may be that adding the limited Reddit data to the model led the model to put too much weight on those limited features. Perhaps another social media source would provide better information about Cardano prices, or perhaps Cardano is still not popular enough to be greatly influenced by chatter about it on social media.
+            </p>
+            <p>
+              These results show that using more extensive market data and combining it with social media chatter can help predict the future behavior of coins. However, the higher the actual price, the worse every model performed. Given that the Prophet model results showed that predicting far into the future is extremely difficult for these currencies, and that the currencies have gone up in price over time, it appears that the LSTM model is also temporally limited: the further in the future the test data was form the training data (and thus the higher the actual price), the more difficult it is for the model to predict the future price.
+            </p>
+            <p>
+              Overall, we propose that current social media chatter (with some possible caveats) and recent market data can help predict cryptocurrency prices in the near future (question 1). However, we cannot predict very far into the future what the prices will be with great accuracy (question 2). Currently, some of our models can give predictions that the price will not be lower than the predicted value with a great deal of certainty, but the actual value is still out of reach
+            </p>
+            <h4>What we would implement in the future</h4>
+            <ul>
+              <li>Add financial data and comments for more promising coins</li>
+              <li>Add filters for the sql data tables on the Flask Website</li>
+              <li>Gather Twitter data (cheaply) over time</li>
+              <li>Reformat, filter, and restructure mongo data to allow for more efficient data processing</li>
+              <li>Implement a Random Forest Model and other ML models to se if an LSTM model is the best option</li>
+            </ul>
+            <h4>Things we would do differently if we did this project again</h4>
+            <ul>
+              <li>Look up API requirements and prices at the very start.</li>
+              <li>Focus more on the database upfront to push the whole project forward earlier.</li>
+              <li>Go in with better expectations of the time required to do each section of the project.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+ </div>
+
+{% endblock %}
+>>>>>>> flask
