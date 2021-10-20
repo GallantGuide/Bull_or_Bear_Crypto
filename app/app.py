@@ -14,7 +14,7 @@ import os
 
 app = Flask(__name__)
 
- db_path = os.getenv('DATABASE_URL')
+db_path = os.getenv('DATABASE_URL')
 
 # App connector and Table Data for DB Pulls
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
