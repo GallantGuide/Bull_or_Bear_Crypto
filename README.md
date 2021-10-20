@@ -243,6 +243,17 @@ After evaluating these results, we concluded that we need a more robust model. T
 
 #### LSTM
 
+For all coins, using reddit data alone was not sufficient for making accurate predictions.  The predictions were immensely underestimated and, in some cases, clustered into vertical columns rather than a scatter or a line alone x=1.  This suggests that there is not enough variation in the Reddit post features to appropriately spread the data across the price range or account for future price increases.
+
+Using the market data alone led to better results for all coins.  At least at lower prices, the estimates were more likely to be around the slope of 1 line, and for Cadrano and Ethereum, the models did try to predict higher price values.  In fact, those two models showed show overestimating prices in some cases.  The Bitcoin market data model, however, showed the least amount of improvement over the Reddit posts only model.  It hugged the red line at first, then greatly underestimated the prices.
+
+For Bitcoin and Ethereum, using both Reddit posts and market data provided the bets models.  The predictions were scattered more closely to the red line and the range of predictions more closely mimic the range of actual values.  Interestingly, for Cardano the market data only model was superior to the model with both market data and Reddit data.  Cardano is a less well-known coin and there were fewer Reddit posts about it.  It may be that adding the limited Reddit data to the model led the model to put too much weight on those limited features.  Perhaps another social media source would provide better information about Cardano prices, or perhaps Cardano is still not popular enough to be greatly influenced by chatter about it on social media.
+
+These results show that using more extensive market data and combining it with social media chatter can help predict the future behavior of coins.  However, the higher the actual price, the worse every model performed.  Given that the Prophet model results showed that predicting far into the future is extremely difficult for these currencies, and that the currencies have gone up in price over time, it appears that the LSTM model is also temporally limited:  the further in the future the test data was form the training data (and thus the higher the actual price), the more difficult it is for the model to predict the future price.
+
+Overall, we propose that current social media chatter (with some possible caveats) and recent market data can help predict cryptocurrency prices in the near future (question 1).  However, we cannot predict very far into the future what the prices will be with great accuracy (question 2).  Currently, some of our models can give predictions that the price will not be *lower than* the predicted value with a great deal of certainty, but the actual value is still out of reach
+
+
 ### What we would implement in the future
 - Add financial data and comments for more promising coins
 - Add filters for the sql data tables on the Flask Website
