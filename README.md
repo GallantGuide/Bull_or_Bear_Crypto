@@ -45,7 +45,8 @@ Cryptocurrencies are of great interest to the finance community right now.  Thei
 - `Python`
   - `os`, `sys`, `time`
   - `bs4` 4.9.3
-  - `flask`
+  - `flask` 1.1.2
+  - `flask-sqlalchemy` 2.5.1
   - `langid` 1.1.6
   - `nltk` 3.6.1
   - `numpy` 1.20.2
