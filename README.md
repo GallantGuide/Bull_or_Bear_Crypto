@@ -101,13 +101,11 @@ For the LSTM model, Yahoo Finance data (left) and Reddit posts (right) are left 
 
 #### Exploratory Model: Prophet Model
 
-We use a basic machine learning model from the prophet library to see how well price data over time alone can predict future prices and how ar in the future the predictions appear to be accurate.
-- Prophet: uses time and price information to predict future prices
+We use a basic machine learning model from the prophet library to see how well price data over time alone can predict future prices and how ar in the future the predictions appear to be accurate.  Prophet uses time and price information to predict future prices.
 
 #### Final Model: Long Short-Term Memory Neural Network
 
-We built a LSTM model that could handle not only price datat over time, but also other market and social media features were were interested in.
-- LSTM: uses both market features and "buzz"/popularity features from Reddit comments
+We built a LSTM model that could handle not only price datat over time, but also other market and social media features were were interested in.  LSTM uses both market features and "buzz"/popularity features from Reddit comments.
 
 <br />
 
@@ -236,6 +234,13 @@ The figures below depict the outcomes of long short-term memory neural networks.
 ## Summary
 
 ### Conclusions
+
+#### Prophet
+The predictions for Bitcoin in 2021 were not accurate at all. This is due to the fact that in 2020-2021 there was a strong and unexpected surge in cryptocurrencies as a whole. This surge could be associated with COVID-19, as the global economy and government's ability to manage the situation inspired doubt in the mainstream market.  Many people started relying on/trusting in a decentralized monetary system. Not only that, but many countries and entities are beginning to trust these coins, and this pushed a lot more people to invest in them.  Again, the results for 2022 could not be evaluated, as they were based on the unknown future (2022).  We use them to visualize the trend in crypto's price and display the steep slope many investors base their bullish predictions on.
+
+After evaluating these results, we concluded that we need a more robust model. The Prophet model was not accurate at all because it was impossible for it to predict the sudden increase of Bitcoin at the end of 2020 and into 2021 using basic statistical predictions on the price. There are many other factors that affect cryptocurrencies, such as politics, volume, social media, influencers, other altcoins, crypto new utilities and innovations, adoption, etc.
+
+#### LSTM
 
 ### What we would implement in the future
 
