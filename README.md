@@ -186,32 +186,32 @@ The decreases in loss overtime for each model can be found in the [lstm/images f
 
 The figures below depict the outcomes of long short-term memory neural networks.  Each figure title names one or more feature sets used the future closing prices for a cryptocurrency. See Features for the individual features in each featire set.  Each graph shows the actual price value plotted against the predicted value. Dots on the red line (slope = 1) are cases where the prediction matched the real value. Dots above the line are cases where the actual price was higher than predicted. Dots below the line are cases where the actual price was lower than predicted.
 
-##### Figure x: Bitcoin future closing price predicted with Market Features
-![figure x](Machine_Learning/lstm/images/Actual_vs_Predictions_Bitcoin_just_market.svg)
+##### Figure 7: Bitcoin future closing price predicted with Market Features
+![figure 7](Machine_Learning/lstm/images/Actual_vs_Predictions_Bitcoin_just_market.svg)
 
-##### Figure x: Bitcoin future closing price predicted with Reddit Features
-![figure x](Machine_Learning/lstm/images/Actual_vs_Predictions_Bitcoin_just_reddit.svg)
+##### Figure 8: Bitcoin future closing price predicted with Reddit Features
+![figure 8](Machine_Learning/lstm/images/Actual_vs_Predictions_Bitcoin_just_reddit.svg)
 
-##### Figure x: Bitcoin future closing price predicted with Market Features and Reddit Features
-![figure x](Machine_Learning/lstm/images/Actual_vs_Predictions_Bitcoin_all_data.svg)
+##### Figure 9: Bitcoin future closing price predicted with Market Features and Reddit Features
+![figure 9](Machine_Learning/lstm/images/Actual_vs_Predictions_Bitcoin_all_data.svg)
 
-##### Figure x: Cardano future closing price predicted with Market Features
-![figure x](Machine_Learning/lstm/images/Actual_vs_Predictions_Cardano_just_market.svg)
+##### Figure 10: Cardano future closing price predicted with Market Features
+![figure 10](Machine_Learning/lstm/images/Actual_vs_Predictions_Cardano_just_market.svg)
 
-##### Figure x: Cardano future closing price predicted with Reddit Features
-![figure x](Machine_Learning/lstm/images/Actual_vs_Predictions_Cardano_just_reddit.svg)
+##### Figure 11: Cardano future closing price predicted with Reddit Features
+![figure 11](Machine_Learning/lstm/images/Actual_vs_Predictions_Cardano_just_reddit.svg)
 
-##### Figure x: Cardano future closing price predicted with Market Features and Reddit Features
-![figure x](Machine_Learning/lstm/images/Actual_vs_Predictions_Cardano_all_data.svg)
+##### Figure 12: Cardano future closing price predicted with Market Features and Reddit Features
+![figure 12](Machine_Learning/lstm/images/Actual_vs_Predictions_Cardano_all_data.svg)
 
-##### Figure x: Ethereum future closing price predicted with Market Features
-![figure x](Machine_Learning/lstm/images/Actual_vs_Predictions_Ethereum_just_market.svg)
+##### Figure 13: Ethereum future closing price predicted with Market Features
+![figure 13](Machine_Learning/lstm/images/Actual_vs_Predictions_Ethereum_just_market.svg)
 
-##### Figure x: Ethereum future closing price predicted with Reddit Features
-![figure x](Machine_Learning/lstm/images/Actual_vs_Predictions_Ethereum_just_reddit.svg)
+##### Figure 14: Ethereum future closing price predicted with Reddit Features
+![figure 14](Machine_Learning/lstm/images/Actual_vs_Predictions_Ethereum_just_reddit.svg)
 
-##### Figure x: Ethereum future closing price predicted with Market Features and Reddit Features
-![figure x](Machine_Learning/lstm/images/Actual_vs_Predictions_Ethereum_all_data.svg)
+##### Figure 15: Ethereum future closing price predicted with Market Features and Reddit Features
+![figure 15](Machine_Learning/lstm/images/Actual_vs_Predictions_Ethereum_all_data.svg)
 
 ## Summary
 
