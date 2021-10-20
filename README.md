@@ -17,7 +17,7 @@ Cryptocurrencies are of great interest to the finance community right now.  Thei
 -	[Kaggle Cryptocurrency Dataset]( https://www.kaggle.com/sudalairajkumar/cryptocurrencypricehistory) (coin prices over time)
 -	Yahoo Finance (stock trends over time) - [web-scraper](web_scraping/load/Yahoo_Finance_Scraper.py)
 -	Reddit (posts) - [api-caller](web_scraping/load/Reddit_API_Caller.py)
--	Twitter (posts) - [api-caller](web_scraping/load/Twitter_API_Caller.py)*
+-	Twitter (posts) - [api-caller for recent search](web_scraping/load/Twitter_API_Caller.py), [archival search test](web_scraping/jupyter_notebook_tests/Historical_Twitter_API.ipynb)*
 * Twitter data is not used in the final model, because it was too costly to access Twitter's archival API to get all of the data we needed for this project in a month.
 
 ### Target Questions
@@ -41,6 +41,7 @@ Cryptocurrencies are of great interest to the finance community right now.  Thei
 - `Python`
   - `os`, `sys`, `time`
   - `bs4` 4.9.3
+  - `flask`
   - `langid` 1.1.6
   - `nltk` 3.6.1
   - `numpy` 1.18.0
@@ -52,50 +53,67 @@ Cryptocurrencies are of great interest to the finance community right now.  Thei
   - `tensorflow` 2.6.0
   - `webdriver_manager` 3.4.1
  
-### Communication Protocols
-
-All group members belong to a discord server dedicated to this project.  There are text channels dedicated to all aspects of the project (e.g. machine-learning and database channels), as well as channels for resources and error handling.  Additionally, there are voice channels that allow group members to talk through problems live.  Discord offers screen sharing, so group members can present their code or other works-in-progress.  Finally, we created a bot that announces when changes are made to the repository, so all members are informed as changes are pushed.  As a backup, all group members have exchanged phone numbers and email.
-
-### Resources
-
-#### Pre-processing
+### Pre-processing
 
 All preprocessing was done in Python.
 - The Kaggle data are clean and required no pre-processing.
 - The Yahoo Finance data is scraped from Yahoo Finance in groups of 100.  These groups are then combined and sorted by date.  No other processing is required.
 - For the Reddit posts, posts are pulled from an API.  Posts that are not in English (as identified by langid) are dropped.  Posts with duplicate titles are dropped.  Finally, the NLTK library is used to run a sentiment analysis on the post title and the sentiment data (positive, negative, neutral, composite) is added to each post.
 
-#### Post-processing
+### Database Storage
+
+#### SQL
+PostgreSQL is used to store the data from Kaggle and Yahoo Finance ([the SQL schema code is here](Sql/Schema/schema.sql)).  The database is hosted using AWS.
+
+![SQL schema](Sql/Schema/schema.png)  
+
+#### MongoDB
+MongoDB is used to store the Reddit posts.  We use MongoDB compass for local administering of data, and MongoDB Altas hosts the database. The database was structured as shown below:
+
+- Reddit Comments
+  - Bitcoin
+  - Ethereum
+  - Cardano
+
+#### Connection Example
+The [final model](Machine_Learning/lstm/lstm_final_models.ipynb) uses both the Yahoo Finance data from the AWS server and the the Reddit posts from the MongoDB server.
+
+
+### Post-processing
 - The Kaggle data are model-ready and required no post-processing.
 - The Yahoo Finance data are model-ready and required no post-processing.
 - The Reddit posts are sorted into bins by date.  For each date, the number of posts was summed, and the average number of comments per post, compound post sentiment, and post score are calculated.
 For the LSTM model, Yahoo Finance data (left) and Reddit posts (right) are left joined on date.  For any date which had Yahoo Finance data, but did not have Reddit posts, NANS are replaced with 0.  There are no cases where we had Reddit posts but no Yahoo Finance data.
 
 
-### Database Storage
+### Analysis in brief
 
-PostgreSQL is used to store the data from Kaggle and Yahoo Finance ([SQL Schema](Sql/Schema/schema.sql)). MongoDB is used to store the Reddit posts.
-
-![SQL schema](https://github.com/CaptCarmine/Bull_or_Bear_Crypto/blob/main/images/SQL_Schema.png?raw=true)  
-
-### Connection
-
-To proceed with the machine learning models, we used SQLAlchemy to connect to the database and extract the Kaggle datasets for Bitcoin, Ethereum, and Cardano. This part of the project can be seen in the [DB_Connection&DataExctraction.ipynb](https://github.com/CaptCarmine/Bull_or_Bear_Crypto/blob/ML_Model/Machine_Learning/DB_Connection%26DataExtraction.ipynb). We created an engine and a session to then query all the data we needed. Moreover, we converted it into a dataframe and exported it into the data folder. The resulting tables were the BTC.csv, ETH.csv, and ADA.csv.  
-
-
-#### Analysis
-
-##### Exploratory Model: Prophet Model
+#### Exploratory Model: Prophet Model
 
 We use a basic machine learning model from the prophet library to see how well price data over time alone can predict future prices and how ar in the future the predictions appear to be accurate.
 - Prophet: uses time and price information to predict future prices
 
-##### Final Model: Long Short-Term Memory Neural Network
+#### Final Model: Long Short-Term Memory Neural Network
 
 We built a LSTM model that could handle not only price datat over time, but also other market and social media features were were interested in.
 - LSTM: uses both market features and "buzz"/popularily features from reddit comments
 
-### Machine Learning
+### Dashboard
+
+The results are built into a [Flask app hosted via Heroku](https://bull-or-bear-crypto.herokuapp.com).  There is an interactive nav section that allows users to pick which coin they would like to view, and whether they want to see the model data or teh raw kaggle data for that coin.  There is also an about link that rediects to the google slides presentation.
+
+#### Image sourcing
+
+Bull and Bear images for the dashboard were downloaded from the royalty free stock image website [deposit photos](https://depositphotos.com/stock-photos/bull-bear-market.html).
+
+
+### Communication Protocols
+
+All group members belong to a discord server dedicated to this project.  There are text channels dedicated to all aspects of the project (e.g. machine-learning and database channels), as well as channels for resources and error handling.  Additionally, there are voice channels that allow group members to talk through problems live.  Discord offers screen sharing, so group members can present their code or other works-in-progress.  Finally, we created a bot that announces when changes are made to the repository, so all members are informed as changes are pushed.  As a backup, all group members have exchanged phone numbers and email.
+
+
+
+## Results
 
 #### Prophet Model
 
@@ -144,7 +162,7 @@ def preprocess_and_model(crypto_df):
 
 As it can be seen in the Prophet_ML_Model.ipynb, we wanted to first train the model using data up to 2020, so that the model could predict up to 2021 and we could graphically compare the results to today's price to measure the accuracy. Please refer to the results subtititle. And secondly, as the results were not as accurate because of the 2021 strong and unexpected surge of cryptocurrencies, we wanted to also create Prophet_ML_Future2022.ipynb where we trained our model including data up to present times (mid 2021) to forecast up to mid 2022. The results were a lot different.
 
-##### Results:
+## Results:
 
 As it can be seen, the predictions for Bitcoin in 2021 were not accurate at all. This is due to the fact that in 2020-2021 there was a strong and unexpected surge in cryptocurrencies as a whole. This could be associated with Covid as the global economy and government's ability to manage the situation was filled with doubt, so many people started relying/trusting in a decentralized monetary system. Not only that, but many countries and entities beginning to trust in these coins pushed a lot more people to invest in them.  
 
@@ -170,7 +188,3 @@ As a first approach to this project, we wanted to somewhat explore the data and 
 #### Neural Network Model
 
 SciKitLearn is the ML library we'll be using to create a classifier.  A function to automate data processing and model training exists, but the time aspect of implementation is still a work in progress.
-
-### Dashboard
-
-In addition to using a Flask template, we will also integrate Plotly.js for a fully functioning and interactive dashboard. It will be hosted on ___.
