@@ -5,21 +5,21 @@
 <div class="wrapper">
     <div class="jumbotron">
         <h1 class="display-4"> Welcome </h1>
-      </div>
-      <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-3">
-                <h3> Site Links </h3> <small> Readme </small>
-            </div>    
-             <div class="col-md-9" > 
-                <form method="POST">
-                    <h3> Site to visit: </h3>
-                    <p><input type ="text" name="url" /></p>
-                    <p><input type ="submit" value="submit" /></p>
-                </form>
+    </div>
+    <!-- <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-3">
+              <h3> Site Links </h3> <small> Readme </small>
+          </div>    
+            <div class="col-md-9" > 
+              <form method="POST">
+                  <h3> Site to visit: </h3>
+                  <p><input type ="text" name="url" /></p>
+                  <p><input type ="submit" value="submit" /></p>
+              </form>
             </div>
         </div>
-        
+    </div>   -->
         <!-- Read me info -->
     <div class="container-fluid btn-dark">
         <div class="row">
@@ -44,9 +44,9 @@
             </h2>
           </div>
           <div class="col-md-9">
-            <p>
-            Cryptocurrencies are of great interest to the finance community right now.  Their possible impacts on the global economy are being investigated, and it seems likely that some form of block chain currency will be adopted by nations, [including the US] as official currencies.  Currently, these currencies can be traded on the stock market and show marked volatility as their underlying worth is unclear.  Being able to predict what factors influence cryptocurrency prices could be a key factor is understating why they are so volatile and what could be done to help stabilize them enough to be used an official currency.  It is also of great interest to investors to be able to predict the behavior of these coins and take advantage of these predictions to grow investment accounts.
-            </p>
+            <h5>
+            Cryptocurrencies are of great interest to the finance community right now.  Their possible impacts on the global economy are being investigated, and it seems likely that some form of block chain currency will be adopted by nations, as official currencies.  Currently, these currencies can be traded on the stock market and show marked volatility as their underlying worth is unclear.  Being able to predict what factors influence cryptocurrency prices could be a key factor is understating why they are so volatile and what could be done to help stabilize them enough to be used an official currency.  It is also of great interest to investors to be able to predict the behavior of these coins and take advantage of these predictions to grow investment accounts.
+            </h5>
           </div>
         </div>
       </div>  
@@ -59,17 +59,76 @@
             </h2>
           </div>
           <div class="col-md-9">
-            <p>
-                - Is cryptocurrency behavior correlated between different coins?  I.e. Do they all increase and decrease together?
-                - What predicts cryptocurrency behavior?
-                - Overall market behavior
-                - Behavior of commodities (e.g. Gold)
-                - Posts about the currencies on social media (e.g. reddit and twitter)
-                - How far into the future are predictions about cryptocurrency behavior accurate?
-            </p>
+            <h5>
+              <ul>
+                <li> What predicts cryptocurrency behavior?</li>
+                <ul>
+                  <li> Past currency behavior?</li>
+                  <li> Posts about the currencies on social media (e.g. reddit and twitter)?</li>
+                </ul>
+                <li> How far into the future are predictions about cryptocurrency behavior accurate?</li>    
+              </ul>    
+            </h5>
           </div>
         </div>
-      </div>  
+      </div>
+
+      <div class="container-fluid btn-dark">
+        <div class="row">
+          <div class="col-md-3">
+            <h2>
+              Pre-processing
+            </h2>
+          </div>
+          <div class="col-md-9">
+            <h5>
+              All preprocessing is done in Python.
+              <ul>
+                <li> The Kaggle data is clean and required no preprocessing.</li>
+                <li> The Yahoo Finance data is scraped from Yahoo Finance in groups of 100.  These groups are then combined and sorted by date.  No other processing is required.</li>
+                <li> For the Reddit data, posts are pulled from an API.  Posts that are not in English (as identified by langid) are dropped.  Posts with duplicate titles are dropped.  Finally, the NLTK library is used to run a sentiment analysis on the post title and the sentiment data (positive, negative, neutral, composite) is added to each post.</li>
+              </ul>    
+            </h5>
+          </div>
+        </div>
+      </div>
+
+      <div class="container-fluid btn-dark">
+        <div class="row">
+          <div class="col-md-3">
+            <h2>
+              Database
+            </h2>
+          </div>
+          <div class="col-md-9">
+            <h5>   
+              <img src = "{{ dref1 }}" height=600 />
+            </h5>
+          </div>
+        </div>
+      </div>
+
+      <div class="container-fluid btn-dark">
+        <div class="row">
+          <div class="col-md-3">
+            <h2>
+              Prophet model
+            </h2>
+          </div>
+          <div class="col-md-9">
+            <h5>
+              The goal was to create a machine learning model using facebook's prophet library in order to predict the price of bitcoin and some other altcoins. The way to go around this problem was to first extract the data from kaggle. We used bitcoin, ethereum, and cardano's cryptocurrencies to store them in our database. Then, we extracted the data to the jupyter notebooks to run the models The raw data came in CSVs of 10 columns and as many rows as days of lifetime for each coin. see below for models    
+            </h5>
+            <ul>
+              <li>Prophet model components</li>
+              <li><img src = "{{ href1 }}" height=300 /></li>
+              <li>Prophet model Graph</li>
+              <li><img src = "{{ href2 }}" height=300 /></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
  </div>
 
 {% endblock %}

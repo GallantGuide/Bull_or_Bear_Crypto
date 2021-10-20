@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request,redirect, url_for
 from joblib import load
-# from .functions import make_picture, user_input_np_arr
+from functions import make_picture, user_input_np_arr
+# from variables import *
 from sqlalchemy import Table, MetaData, create_engine
 from flask_sqlalchemy import SQLAlchemy
 import psycopg2
@@ -13,8 +14,8 @@ import os
 
 app = Flask(__name__)
 
-db_path = os.getenv('DATABASE_URL')
-
+# db_path = os.getenv('DATABASE_URL')
+db_path = 'postgresql://postgres:umiami17@crypto.cbzxnt6iwq2t.us-east-2.rds.amazonaws.com:5432/postgres'
 
 # App connector and Table Data for DB Pulls
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
@@ -24,16 +25,17 @@ db = SQLAlchemy(app)
 K_Bitcoin = db.Table('K_BITCOIN', db.metadata, autoload=True, autoload_with=db.engine)
 K_Cardano = db.Table('K_CARDANO', db.metadata, autoload=True, autoload_with=db.engine)
 K_Ethereum = db.Table('K_ETHEREUM', db.metadata, autoload=True, autoload_with=db.engine)
-# Ethereum = db.Table('K_BITCOIN', db.metadata, autoload=True, autoload_with=db.engine)
-# Cardnamo = db.Table('K_BITCOIN', db.metadata, autoload=True, autoload_with=db.engine)
 
 
 # Default App Route 
 @app.route("/", methods = ['GET','POST'])
 def Welcome():
     request_type = request.method
+    href1='static/images/BTC_Components.png'
+    href2='static/images/BTC_Accuracy.png'
+    dref1='static/images/schema.png'
     if request_type == 'GET':
-        return render_template('index.html')  
+        return render_template('index.html', href1=href1, href2=href2, dref1=dref1)  
     if request_type == 'POST':
         url_param = request.form["url"]
         return redirect(url_for("url_param",param=url_param))
@@ -107,34 +109,6 @@ def site_template():
     else:
         return render_template('site.html', href='static/images/Base_image.svg')  
 
-def make_picture(training_data_fname, model, user_input_np_arr, output_file):
-  data = pd.read_pickle(training_data_fname)
-  data = data[data['Age'] > 0 ]
-  ages = data['Age']
-  heights = data['Height']
-  x_new = np.array(list(range(19))).reshape(19,1)
-  preds = model.predict(x_new)
-  fig= px.scatter(x = ages, y = heights, title= "Height V Age of People", labels = {'x':'Age (Years)', 'y': 'Heights(inches)'})
-  fig.add_trace(go.Scatter(x=x_new.reshape(19), y=preds, mode = 'lines', name = 'Model'))
-
-  new_preds = model.predict(user_input_np_arr)
-  fig.add_trace(go.Scatter(x=user_input_np_arr.reshape(len(user_input_np_arr)), y = new_preds, name='New Outputs', mode ='markers', marker=dict(color ='green', size = 20, line=dict(color ='orange',width=2))))
-
-  fig.write_image(output_file, width = 800, engine='kaleido')
-  fig.show()
-
-def user_input_np_arr(float_str):
-  def is_float(s):
-    try:
-      float(s)
-      return True 
-    except:
-      return False  
-  floats = np.array([float(x) for x in float_str.split(',') if is_float(x)])
-  return floats.reshape(len(floats),1)
-
-
-
 # Database connector app routes
 @app.route("/bitcoin_db", methods = ['GET','POST'])
 def Bitcoin_Search():
@@ -164,5 +138,5 @@ def Ethereum_Search():
         return render_template('ethereum_db.html', k_ethereum=k_ethereum)    
 
 # Local site app config 
-# if __name__ == "__main__":
-#     app.run(debug=True)        
+if __name__ == "__main__":
+    app.run(debug=True)        

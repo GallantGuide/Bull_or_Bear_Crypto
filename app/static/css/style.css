@@ -8,18 +8,37 @@ h1 {
   color: lightgrey;
 }
 
+p {
+ font-size: 20pt;   
+}
+
 .block {
   color: #f7f7f7;
 }
 
 .jumbotron {
-    background-image: url('../images/bull_or_bear.jpg');
-    background-size: contain;
-    text-align: center;
-  }
+  background-image: url('../images/bull_or_bear.jpg');
+  background-size: contain;
+  text-align: center;
+}
+
+h1 {
+  font-weight: bold !important;
+}
 
 #home-content {
   display: flex;
   align-items: center;
   flex-flow: column;
+}
+
+.image-holder {
+  max-width: 800px;
+  width: 70vw;
+  background-color: blue; 
+}
+
+.model-image {
+  max-width: 100%;
+  max-height: 100%;
 }
