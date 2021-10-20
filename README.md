@@ -1,12 +1,14 @@
 # Bull or Bear Crypto
 
-Using machine learning to forecast cryptocurrency prices
+*Using machine learning to forecast cryptocurrency prices*
+
+<br />
 
 ## Overview
 
 ### Topic
 
-We are interested in analyzing what factors are correlated with the prices of cryptocurrencies over time, and whether these factors can be used to predict the future prices of these currencies.
+We are interested in analyzing what factors are correlated with the cryptocurrency prices over time, and whether these factors can be used to predict the future currencies prices.
 
 ### Justification
 
@@ -17,20 +19,22 @@ Cryptocurrencies are of great interest to the finance community right now.  Thei
 -	[Kaggle Cryptocurrency Dataset]( https://www.kaggle.com/sudalairajkumar/cryptocurrencypricehistory) (coin prices over time)
 -	Yahoo Finance (stock trends over time) - [web-scraper](web_scraping/load/Yahoo_Finance_Scraper.py)
 -	Reddit (posts) - [api-caller](web_scraping/load/Reddit_API_Caller.py)
--	Twitter (posts) - WIP
+-	Twitter (posts) - [api-caller for recent search](web_scraping/load/Twitter_API_Caller.py), [archival search test](web_scraping/jupyter_notebook_tests/Historical_Twitter_API.ipynb)*
+* Twitter data is not used in the final model, because it was too costly to access Twitter's archival API to get all of the data we needed for this project in a month.
 
 ### Target Questions
 
-- Is cryptocurrency behavior correlated between different coins?  I.e. Do they all increase and decrease together?
 - What predicts cryptocurrency behavior?
-  - Overall market behavior
-  - Behavior of commodities (e.g. Gold)
-  - Posts about the currencies on social media (e.g. reddit and twitter)
+  - Past currency behavior?
+  - Posts about the currencies on social media (e.g. Reddit and Twitter)
 - How far into the future are predictions about cryptocurrency behavior accurate?
 
-### Presentation
-[Google Slides Presentation](https://docs.google.com/presentation/d/1qu0JbQYSA0umzOtQzQflVEVPWwJOPFtdg98poT5wJQE)
+### External Resources
+- [Live Project](https://bull-or-bear-crypto.herokuapp.com)
+- [Google Slides Presentation](https://docs.google.com/presentation/d/1qu0JbQYSA0umzOtQzQflVEVPWwJOPFtdg98poT5wJQE)
 
+<br />
+<br />
 
 ## Project Implementation
 
@@ -39,130 +43,225 @@ Cryptocurrencies are of great interest to the finance community right now.  Thei
 - `SQL`
 - `MongoDB`
 - `Python`
-  - `Prophet library`
-  - `pandas` 1.2.4
-  - `requests` 2.25.1
+  - `os`, `sys`, `time`
+  - `bs4` 4.9.3
+  - `flask` 1.1.2
+  - `flask-sqlalchemy` 2.5.1
   - `langid` 1.1.6
   - `nltk` 3.6.1
-  - `splinter` 0.15.0
-  - `bs4` 4.9.3
-  - `webdriver_manager` 3.4.1
+  - `numpy` 1.20.2
+  - `pandas` 1.2.4
+  - `Prophet library`
+  - `requests` 2.25.1
   - `sklearn` 0.24.1
+  - `splinter` 0.15.0
   - `tensorflow` 2.6.0
-  - `os`, `sys`, `time`
+  - `webdriver_manager` 3.4.1
+ 
+ <br />
+ 
+### Pre-processing
 
-### Communication Protocols
+All preprocessing was done in Python.
+- The Kaggle data are clean and required no pre-processing.
+- The Yahoo Finance data is scraped from Yahoo Finance in groups of 100.  These groups are then combined and sorted by date.  No other processing is required.
+- For the Reddit posts, posts are pulled from an API.  Posts that are not in English (as identified by langid) are dropped.  Posts with duplicate titles are dropped.  Finally, the NLTK library is used to run a sentiment analysis on the post title and the sentiment data (positive, negative, neutral, composite) is added to each post.
 
-All group members belong to a discord server dedicated to this project.  There are text channels dedicated to all aspects of the project (e.g. machine-learning and database channels), as well as channels for resources and error handling.  Additionally, there are voice channels that allow group members to talk through problems live.  Discord offers screen sharing so group members can present their code.  Finally, we created a bot that announces when changes are made to the repository, so all members are informed as changes are pushed.  As a backup, all group members have exchanged phone numbers and email.
-
-### Resources
-
-#### Pre-processing
-
-All preprocessing is done in Python.  The Kaggle data is clean and required no preprocessing.  The Yahoo Finance data is scraped from Yahoo Finance in groups of 100.  These groups are then combined and sorted by date.  No other processing is required.  For the Reddit data, posts are pulled from an API.  Posts that are not in English (as identified by langid) are dropped.  Posts with duplicate titles are dropped.  Finally, the NLTK library is used to run a sentiment analysis on the post title and the sentiment data (positive, negative, neutral, composite) is added to each post.
-
-#### Post-processing
-
-#### Analysis
-
-##### Exploratory
-
-We will check for correlations between various cryptocurrency prices.  We will also examine the correlations between individual currency prices and other features like how much a currency is talked about on social media or other market trends.
-
-##### Machine learning
-
-We are using a series of machine learning models to predict the future behavior of cryptocurrencies.  See the machine learning section below for more imdept information.  The models include:
-
-- Prophet: uses time and price information to predict future prices
-- Neural Network: uses a large number of features which may include time, prices of cryptocurrencies, prices of other market factors (e.g. the S&P500 or commodities), and “buzz” factors
+<br />
 
 ### Database Storage
 
-PostgreSQL will be used to store the data from Kaggle and Yahoo Finance ([SQL Schema](Sql/Schema/schema.sql)). Currently, we are using [csvs](Sql/Resources) for setting up the analysis pipeline. MongoDB will be used to store document-based data including Reddit and Twitter posts.
+#### SQL
+PostgreSQL is used to store the data from Kaggle and Yahoo Finance ([the SQL schema code is here](Sql/Schema/schema.sql)).  The database is hosted using AWS.
 
-![SQL schema](https://github.com/CaptCarmine/Bull_or_Bear_Crypto/blob/main/images/SQL_Schema.png?raw=true)  
+##### Figure 1: ERD for the SQL database
+![SQL schema](Sql/Schema/schema.png)  
 
-### Connection
+#### MongoDB
+MongoDB is used to store the Reddit posts.  We use MongoDB compass for local administering of data, and MongoDB Altas hosts the database. The database was structured as shown below:
 
-To proceed with the machine learning models, we used SQLAlchemy to connect to the database and extract the Kaggle datasets for Bitcoin, Ethereum, and Cardano. This part of the project can be seen in the [DB_Connection&DataExctraction.ipynb](https://github.com/CaptCarmine/Bull_or_Bear_Crypto/blob/ML_Model/Machine_Learning/DB_Connection%26DataExtraction.ipynb). We created an engine and a session to then query all the data we needed. Moreover, we converted it into a dataframe and exported it into the data folder. The resulting tables were the BTC.csv, ETH.csv, and ADA.csv.  
+- Reddit Comments
+  - Bitcoin
+  - Ethereum
+  - Cardano
 
+#### Connection Example
+The [final model](Machine_Learning/lstm/lstm_final_models.ipynb) uses both the Yahoo Finance data from the AWS server and the the Reddit posts from the MongoDB server.
 
-### Machine Learning
+<br />
 
-#### Prophet Model
+### Post-processing
+- The Kaggle data are model-ready and required no post-processing.
+- The Yahoo Finance data are model-ready and required no post-processing.
+- The Reddit posts are sorted into bins by date.  For each date, the number of posts was summed, and the average number of comments per post, compound post sentiment, and post score are calculated.
+For the LSTM model, Yahoo Finance data (left) and Reddit posts (right) are left joined on date.  For any date which had Yahoo Finance data, but did not have Reddit posts, NANS are replaced with 0.  There are no cases where we had Reddit posts but no Yahoo Finance data.
 
-The goal was to create a machine learning model using facebook's prophet library in order to predict the price of bitcoin and some other altcoins. The way to go around this problem was to first extract the data from kaggle. Please, refer [here](https://www.kaggle.com/sudalairajkumar/cryptocurrencypricehistory?select=coin_Ethereum.csv). We used bitcoin, ethereum, and cardano's cryptocurrencies to store them in our database. Then, we extracted the data to the jupyter notebooks to run the models The raw data came in CSVs of 10 columns and as many rows as days of lifetime for each coin. For example, Bitcoins csv file looked like this: 
+<br />
 
- |    |   SNo | Name    | Symbol   | Date                |    High |      Low |    Open |   Close |   Volume |   Marketcap |
-|---:|------:|:--------|:---------|:--------------------|--------:|---------:|--------:|--------:|---------:|------------:|
-|  0 |     1 | Bitcoin | BTC      | 2013-04-29 23:59:59 | 147.488 | 134      | 134.444 |  144.54 |        0 | 1.60377e+09 |
-|  1 |     2 | Bitcoin | BTC      | 2013-04-30 23:59:59 | 146.93  | 134.05   | 144     |  139    |        0 | 1.54281e+09 |
-|  2 |     3 | Bitcoin | BTC      | 2013-05-01 23:59:59 | 139.89  | 107.72   | 139     |  116.99 |        0 | 1.29895e+09 |
-|  3 |     4 | Bitcoin | BTC      | 2013-05-02 23:59:59 | 125.6   |  92.2819 | 116.38  |  105.21 |        0 | 1.16852e+09 |
-|  4 |     5 | Bitcoin | BTC      | 2013-05-03 23:59:59 | 108.128 |  79.1    | 106.25  |   97.75 |        0 | 1.086e+09   |
+### Analysis in brief
 
-Moreover, prophet required the data to be preprocessed into a two-column datetime and price dataframe. The preprocessing included filtering the columns that were not going to be used, changing the date string to a date data type, and renaming the columns as 'DS' for the date and 'y' for the price. 
+#### Exploratory Model: Prophet Model
 
-![BTC Dtypes](https://github.com/CaptCarmine/Bull_or_Bear_Crypto/blob/ML_Model/Machine_Learning/Resources/prophet_btc_dtypes.png)
+We use a basic machine learning model from the prophet library to see how well price data over time alone can predict future prices and how ar in the future the predictions appear to be accurate.  Prophet uses time and price information to predict future prices.
 
-```
-def preprocess_and_model(crypto_df):
-    # Preprocessing
-    crypto_df = crypto_df.drop(['SNo','Name','Symbol','High','Low','Open','Marketcap','Volume'], axis=1)
-    crypto_df['Date'] = crypto_df['Date'].apply(lambda date: dt.strptime(date,'%Y-%m-%d %H:%M:%S'))
-    crypto_df = crypto_df.rename(columns={'Date':'ds','Close':'y'})
-    train_percent = int(len(crypto_df)*0.80)
-    test_periods = int(len(crypto_df)*0.20)
-    crypto_train_df = crypto_df.iloc[:train_percent, :]
-    
-    # Modeling
-    m = Prophet()
-    m.fit(crypto_train_df)
-    future = m.make_future_dataframe(periods=test_periods)
-    forecast = m.predict(future)
-    forecast_df = forecast[['ds','yhat','yhat_lower','yhat_upper']]
-    predict_graph = m.plot(forecast)
-    component_graph = m.plot_components(forecast)
-    
-    # Price prediction (yhat) vs acual price (y)
-    price = crypto_df['y']
-    acc_forecast = forecast[['ds','yhat']]
-    crypto_accuracy_df = acc_forecast.join(price)
-    crypto_accuracy_df = crypto_accuracy_df.set_index('ds')
-    predict_accuracy_graph = crypto_accuracy_df.plot()
-    
-    return forecast_df, predict_graph, component_graph, predict_accuracy_graph
-```
+#### Final Model: Long Short-Term Memory Neural Network
 
-As it can be seen in the Prophet_ML_Model.ipynb, we wanted to first train the model using data up to 2020, so that the model could predict up to 2021 and we could graphically compare the results to today's price to measure the accuracy. Please refer to the results subtititle. And secondly, as the results were not as accurate because of the 2021 strong and unexpected surge of cryptocurrencies, we wanted to also create Prophet_ML_Future2022.ipynb where we trained our model including data up to present times (mid 2021) to forecast up to mid 2022. The results were a lot different.
+We built a LSTM model that could handle not only price datat over time, but also other market and social media features were were interested in.  LSTM uses both market features and "buzz"/popularity features from Reddit comments.
 
-##### Results:
-
-As it can be seen, the predictions for Bitcoin in 2021 were not accurate at all. This is due to the fact that in 2020-2021 there was a strong and unexpected surge in cryptocurrencies as a whole. This could be associated with Covid as the global economy and government's ability to manage the situation was filled with doubt, so many people started relying/trusting in a decentralized monetary system. Not only that, but many countries and entities beginning to trust in these coins pushed a lot more people to invest in them.  
-
-![BTC 2021 Predictions](https://github.com/CaptCarmine/Bull_or_Bear_Crypto/blob/ML_Model/Machine_Learning/Resources/BTC_2021_Prediction.png)
-
-![BTC Accuracy Graph](https://github.com/CaptCarmine/Bull_or_Bear_Crypto/blob/ML_Model/Machine_Learning/Resources/BTC_Accuracy.png)
-*Where y is real price and yhat is the model-predicted price*
-
-Moreover, we wanted to train the model using the newest data (up to mid 2021) which displayed the increase in crypto's popularity. Again, these results were not possible to evaluate as they were based on the unknown future (2022), so we wanted to use them to visualize the trend in crypto's price and display the steep slope many investors base their bullish predictions on. 
-
-*Price prediction: from July 2021 to July 22*
-![BTC_Prediction](https://github.com/CaptCarmine/Bull_or_Bear_Crypto/blob/ML_Model/Machine_Learning/Resources/BTC_Predictions.png)  
-
-*Yearly, monthly, and weekly components*
-![BTC_Components](https://github.com/CaptCarmine/Bull_or_Bear_Crypto/blob/ML_Model/Machine_Learning/Resources/BTC_Components.png)
-
-##### Summary
-
-As a first approach to this project, we wanted to somewhat explore the data and make some simple predictions and visualizations. After evaluating these results, we concluded that there is a lot more analysis to be made. The model was not accurate at all because it was impossible for it to predict the sudden increase of Bitcoin at the end of 2020 using basic statistical predictions on the price. There are many other factors that affect cryptocurrencies now a days such as politics, volume, social media, influencers, other altcoins, crypto new utilities and innovations, adoption, etc. So, furthermore with this project we will be creating reddit and twitter sentiment analyses and using other machine learning models to better predict cryptos' prices. 
-
-
-
-#### Neural Network Model
-
-SciKitLearn is the ML library we'll be using to create a classifier.  A function to automate data processing and model training exists, but the time aspect of implementation is still a work in progress.
+<br />
 
 ### Dashboard
 
-In addition to using a Flask template, we will also integrate Plotly.js for a fully functioning and interactive dashboard. It will be hosted on ___.
+The results are built into a [Flask app hosted via Heroku](https://bull-or-bear-crypto.herokuapp.com).  There is an interactive navigation section that allows users to pick which coin they would like to view, and whether they want to see the model data or the raw kaggle data for that coin.  There is also an about link that rediects to the google slides presentation.
+
+#### Image sourcing
+
+Bull and Bear images for the dashboard were downloaded from the royalty free stock image website [deposit photos](https://depositphotos.com/stock-photos/bull-bear-market.html).
+
+<br />
+
+### Communication Protocols
+
+All group members belong to a discord server dedicated to this project.  There are text channels dedicated to all aspects of the project (e.g. machine-learning and database channels), as well as channels for resources and error handling.  Additionally, there are voice channels that allow group members to talk through problems live.  Discord offers screen sharing, so group members can present their code or other works-in-progress.  Finally, we created a bot that announces when changes are made to the repository, so all members are informed as changes are pushed.  As a backup, all group members have exchanged phone numbers and email.
+
+
+<br />
+<br />
+
+## Results
+
+### Prophet Model
+
+#### Model Choice
+
+As a first approach to this project, we wanted explore the data and make predictions and visualizations with a simple model.  We chose Facebook's Prophet library, because it was designed to predict the future value for one feature.  In our case, this was closing price.  The model was extremely easily to implement, and it runs quickly, however it was limited to only one feature.  Regardless, this model allowed us to get an initial view on the volatility of cryptocurrency prices, as the models struggled to predict future prices from past prices alone.
+
+#### Features
+
+For feature engineering, see the pre-processing section above.  Prophet required the data to be postprocessed into a two-column datetime and price dataframe, where the date string  was of date data type, and the columns were named 'DS' for the date and 'y' for the price.
+
+##### Figure 2: Final dataframe format for the Prophet model
+![BTC Dtypes](https://github.com/CaptCarmine/Bull_or_Bear_Crypto/blob/ML_Model/Machine_Learning/Resources/prophet_btc_dtypes.png)
+
+
+#### Training and Testing
+
+We trained two versions of the prophet model.  We wanted to first train the model using data up to 2020, so that the model could predict up to 2021.  This would let us compare the predicted 2021 prices to the real 2021 prices.  We also wanted to train the model using the newest data (up to mid 2021) which displayed the increase in crypto's popularity during the changes in the global economy due to COVID 19.  These results could not be evaluated as they were based on the unknown future (2022).
+
+#### Prophet Results
+
+##### Figure 3: Bitcoin predictions for 2021 using data ending in 2020
+![BTC 2021 Predictions](https://github.com/CaptCarmine/Bull_or_Bear_Crypto/blob/ML_Model/Machine_Learning/Resources/BTC_2021_Prediction.png)
+
+##### Figure 4: Bitcoin prediction accuracy for 2021 using data ending in 2020, where *y* is real price and *yhat* is the model-predicted price.
+![BTC Accuracy Graph](https://github.com/CaptCarmine/Bull_or_Bear_Crypto/blob/ML_Model/Machine_Learning/Resources/BTC_Accuracy.png)
+
+##### Figure 5:  Bitcoin predictions from July 2021 to July 22
+![BTC_Prediction](https://github.com/CaptCarmine/Bull_or_Bear_Crypto/blob/ML_Model/Machine_Learning/Resources/BTC_Predictions.png)  
+
+##### Figure 6:  Yearly, monthly, and weekly components for Bitcoin predictions
+![BTC_Components](https://github.com/CaptCarmine/Bull_or_Bear_Crypto/blob/ML_Model/Machine_Learning/Resources/BTC_Components.png)
+
+<br />
+
+### LSTM Neural Network Model
+
+#### Model Choice
+
+We needed a model that could handle the time aspect of price changes while incorporating far more features than the prophet model limited us to.  A Long Short-Term Memory model seemed like the obvious choice.  Although this model would take longer to train than a random forest (for example), it was able to consider a time window’s worth of data to make a decision on the future price.  Furthermore, this type of model is designed for handling data with a time component.  The model choice did not change between sections 2 and 3.  This is a regression model, not a classification model, so there is no confusion matrix.  The accurary score was always zero, because the model almost nerver perfectly predicted the next day's price.
+
+#### Features
+
+For feature engineering, see the pre-processing and post-processing sections above.  Our exploratory analysis had shown that market behavior alone is not produce a good predictive model.  For this model, we chose to retest the market possibility with more market data (e.g. volume traded).  We also want to see if how a coin is talked about on social media affects its price.  Finally, we think that the best model would be one that incorporated both price and market data.  The features under these categories are as follows:
+
+- Market Features
+   - Opening price
+   - High price for the day
+   - Low price for the day
+   - Volume traded
+
+- Reddit Features
+   - Number of posts
+   - Average number of comments per post
+   - Average score per post
+   - Average compound sentiment score
+
+The target for the LSTM models was the closing price.
+
+
+#### Training and Testing
+
+The model required consecutive data to make predictions, so the earliest 75% of the data was used as the training set, and the latest 25% of the data was used at the test set.  For both training and test sets, the time window for the prediction was 7 days, and the model would predict the price on the 8th day.  The model was trained for 300 epochs.
+
+#### LSTM Results
+#### Loss graphs
+The decreases in loss overtime for each model can be found in the [lstm/images folder](Machine_Learning/lstm/images).
+
+##### Overview for each plot
+
+The figures below depict the outcomes of long short-term memory neural networks.  Each figure title names one or more feature sets used the future closing prices for a cryptocurrency. See Features for the individual features in each featire set.  Each graph shows the actual price value plotted against the predicted value. Dots on the red line (slope = 1) are cases where the prediction matched the real value. Dots above the line are cases where the actual price was higher than predicted. Dots below the line are cases where the actual price was lower than predicted.
+
+##### Figure 7: Bitcoin future closing price predicted with Market Features
+![figure 7](Machine_Learning/lstm/images/Actual_vs_Predictions_Bitcoin_just_market.svg)
+
+##### Figure 8: Bitcoin future closing price predicted with Reddit Features
+![figure 8](Machine_Learning/lstm/images/Actual_vs_Predictions_Bitcoin_just_reddit.svg)
+
+##### Figure 9: Bitcoin future closing price predicted with Market Features and Reddit Features
+![figure 9](Machine_Learning/lstm/images/Actual_vs_Predictions_Bitcoin_all_data.svg)
+
+##### Figure 10: Cardano future closing price predicted with Market Features
+![figure 10](Machine_Learning/lstm/images/Actual_vs_Predictions_Cardano_just_market.svg)
+
+##### Figure 11: Cardano future closing price predicted with Reddit Features
+![figure 11](Machine_Learning/lstm/images/Actual_vs_Predictions_Cardano_just_reddit.svg)
+
+##### Figure 12: Cardano future closing price predicted with Market Features and Reddit Features
+![figure 12](Machine_Learning/lstm/images/Actual_vs_Predictions_Cardano_all_data.svg)
+
+##### Figure 13: Ethereum future closing price predicted with Market Features
+![figure 13](Machine_Learning/lstm/images/Actual_vs_Predictions_Ethereum_just_market.svg)
+
+##### Figure 14: Ethereum future closing price predicted with Reddit Features
+![figure 14](Machine_Learning/lstm/images/Actual_vs_Predictions_Ethereum_just_reddit.svg)
+
+##### Figure 15: Ethereum future closing price predicted with Market Features and Reddit Features
+![figure 15](Machine_Learning/lstm/images/Actual_vs_Predictions_Ethereum_all_data.svg)
+
+<br />
+<br />
+
+
+## Summary
+
+### Conclusions
+
+#### Prophet
+The predictions for Bitcoin in 2021 were not accurate at all. This is due to the fact that in 2020-2021 there was a strong and unexpected surge in cryptocurrencies as a whole. This surge could be associated with COVID-19, as the global economy and government's ability to manage the situation inspired doubt in the mainstream market.  Many people started relying on/trusting in a decentralized monetary system. Not only that, but many countries and entities are beginning to trust these coins, and this pushed a lot more people to invest in them.  Again, the results for 2022 could not be evaluated, as they were based on the unknown future (2022).  We use them to visualize the trend in crypto's price and display the steep slope many investors base their bullish predictions on.
+
+After evaluating these results, we concluded that we need a more robust model. The Prophet model was not accurate at all because it was impossible for it to predict the sudden increase of Bitcoin at the end of 2020 and into 2021 using basic statistical predictions on the price. There are many other factors that affect cryptocurrencies, such as politics, volume, social media, influencers, other altcoins, crypto new utilities and innovations, adoption, etc.
+
+#### LSTM
+
+For all coins, using reddit data alone was not sufficient for making accurate predictions.  The predictions were immensely underestimated and, in some cases, clustered into vertical columns rather than a scatter or a line alone x=1.  This suggests that there is not enough variation in the Reddit post features to appropriately spread the data across the price range or account for future price increases.
+
+Using the market data alone led to better results for all coins.  At least at lower prices, the estimates were more likely to be around the slope of 1 line, and for Cadrano and Ethereum, the models did try to predict higher price values.  In fact, those two models showed show overestimating prices in some cases.  The Bitcoin market data model, however, showed the least amount of improvement over the Reddit posts only model.  It hugged the red line at first, then greatly underestimated the prices.
+
+For Bitcoin and Ethereum, using both Reddit posts and market data provided the bets models.  The predictions were scattered more closely to the red line and the range of predictions more closely mimic the range of actual values.  Interestingly, for Cardano the market data only model was superior to the model with both market data and Reddit data.  Cardano is a less well-known coin and there were fewer Reddit posts about it.  It may be that adding the limited Reddit data to the model led the model to put too much weight on those limited features.  Perhaps another social media source would provide better information about Cardano prices, or perhaps Cardano is still not popular enough to be greatly influenced by chatter about it on social media.
+
+These results show that using more extensive market data and combining it with social media chatter can help predict the future behavior of coins.  However, the higher the actual price, the worse every model performed.  Given that the Prophet model results showed that predicting far into the future is extremely difficult for these currencies, and that the currencies have gone up in price over time, it appears that the LSTM model is also temporally limited:  the further in the future the test data was form the training data (and thus the higher the actual price), the more difficult it is for the model to predict the future price.
+
+Overall, we propose that current social media chatter (with some possible caveats) and recent market data can help predict cryptocurrency prices in the near future (question 1).  However, we cannot predict very far into the future what the prices will be with great accuracy (question 2).  Currently, some of our models can give predictions that the price will not be *lower than* the predicted value with a great deal of certainty, but the actual value is still out of reach
+
+
+### What we would implement in the future
+- Add financial data and comments for more promising coins
+- Add filters for the sql data tables on the Flask Website
+- Gather Twitter data (cheaply) over time
+- Reformat, filter, and restructure mongo data to allow for more efficient data processing  
+- Implement a Random Forest Model and other ML models to se if an LSTM model is the best option
+
+### Things we would do differently if we did this project again
+- Focus more on the database upfront to push the whole project forward earlier.
+- Look up API requirements and prices at the very start.
+- Go in with better expectations of the time required to do each section of the project.
