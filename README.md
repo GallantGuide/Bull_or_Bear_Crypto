@@ -113,7 +113,7 @@ We built a LSTM model that could handle not only price datat over time, but also
 
 ### Dashboard
 
-The results are built into a [Flask app hosted via Heroku](https://bull-or-bear-crypto.herokuapp.com).  There is an interactive nav section that allows users to pick which coin they would like to view, and whether they want to see the model data or teh raw kaggle data for that coin.  There is also an about link that rediects to the google slides presentation.
+The results are built into a [Flask app hosted via Heroku](https://bull-or-bear-crypto.herokuapp.com).  There is an interactive navigation section that allows users to pick which coin they would like to view, and whether they want to see the model data or the raw kaggle data for that coin.  There is also an about link that rediects to the google slides presentation.
 
 #### Image sourcing
 
