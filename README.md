@@ -2,6 +2,8 @@
 
 *Using machine learning to forecast cryptocurrency prices*
 
+<br />
+
 ## Overview
 
 ### Topic
@@ -31,6 +33,8 @@ Cryptocurrencies are of great interest to the finance community right now.  Thei
 - [Live Project](https://bull-or-bear-crypto.herokuapp.com)
 - [Google Slides Presentation](https://docs.google.com/presentation/d/1qu0JbQYSA0umzOtQzQflVEVPWwJOPFtdg98poT5wJQE)
 
+<br />
+<br />
 
 ## Project Implementation
 
@@ -53,12 +57,16 @@ Cryptocurrencies are of great interest to the finance community right now.  Thei
   - `tensorflow` 2.6.0
   - `webdriver_manager` 3.4.1
  
+ <br />
+ 
 ### Pre-processing
 
 All preprocessing was done in Python.
 - The Kaggle data are clean and required no pre-processing.
 - The Yahoo Finance data is scraped from Yahoo Finance in groups of 100.  These groups are then combined and sorted by date.  No other processing is required.
 - For the Reddit posts, posts are pulled from an API.  Posts that are not in English (as identified by langid) are dropped.  Posts with duplicate titles are dropped.  Finally, the NLTK library is used to run a sentiment analysis on the post title and the sentiment data (positive, negative, neutral, composite) is added to each post.
+
+<br />
 
 ### Database Storage
 
@@ -79,6 +87,7 @@ MongoDB is used to store the Reddit posts.  We use MongoDB compass for local adm
 #### Connection Example
 The [final model](Machine_Learning/lstm/lstm_final_models.ipynb) uses both the Yahoo Finance data from the AWS server and the the Reddit posts from the MongoDB server.
 
+<br />
 
 ### Post-processing
 - The Kaggle data are model-ready and required no post-processing.
@@ -86,6 +95,7 @@ The [final model](Machine_Learning/lstm/lstm_final_models.ipynb) uses both the Y
 - The Reddit posts are sorted into bins by date.  For each date, the number of posts was summed, and the average number of comments per post, compound post sentiment, and post score are calculated.
 For the LSTM model, Yahoo Finance data (left) and Reddit posts (right) are left joined on date.  For any date which had Yahoo Finance data, but did not have Reddit posts, NANS are replaced with 0.  There are no cases where we had Reddit posts but no Yahoo Finance data.
 
+<br />
 
 ### Analysis in brief
 
@@ -99,6 +109,8 @@ We use a basic machine learning model from the prophet library to see how well p
 We built a LSTM model that could handle not only price datat over time, but also other market and social media features were were interested in.
 - LSTM: uses both market features and "buzz"/popularity features from Reddit comments
 
+<br />
+
 ### Dashboard
 
 The results are built into a [Flask app hosted via Heroku](https://bull-or-bear-crypto.herokuapp.com).  There is an interactive nav section that allows users to pick which coin they would like to view, and whether they want to see the model data or teh raw kaggle data for that coin.  There is also an about link that rediects to the google slides presentation.
@@ -107,12 +119,15 @@ The results are built into a [Flask app hosted via Heroku](https://bull-or-bear-
 
 Bull and Bear images for the dashboard were downloaded from the royalty free stock image website [deposit photos](https://depositphotos.com/stock-photos/bull-bear-market.html).
 
+<br />
 
 ### Communication Protocols
 
 All group members belong to a discord server dedicated to this project.  There are text channels dedicated to all aspects of the project (e.g. machine-learning and database channels), as well as channels for resources and error handling.  Additionally, there are voice channels that allow group members to talk through problems live.  Discord offers screen sharing, so group members can present their code or other works-in-progress.  Finally, we created a bot that announces when changes are made to the repository, so all members are informed as changes are pushed.  As a backup, all group members have exchanged phone numbers and email.
 
 
+<br />
+<br />
 
 ## Results
 
@@ -148,6 +163,7 @@ We trained two versions of the prophet model.  We wanted to first train the mode
 ##### Figure 6:  Yearly, monthly, and weekly components for Bitcoin predictions
 ![BTC_Components](https://github.com/CaptCarmine/Bull_or_Bear_Crypto/blob/ML_Model/Machine_Learning/Resources/BTC_Components.png)
 
+<br />
 
 ### LSTM Neural Network Model
 
@@ -212,6 +228,10 @@ The figures below depict the outcomes of long short-term memory neural networks.
 
 ##### Figure 15: Ethereum future closing price predicted with Market Features and Reddit Features
 ![figure 15](Machine_Learning/lstm/images/Actual_vs_Predictions_Ethereum_all_data.svg)
+
+<br />
+<br />
+
 
 ## Summary
 
