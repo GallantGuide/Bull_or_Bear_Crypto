@@ -44,7 +44,7 @@ Cryptocurrencies are of great interest to the finance community right now.  Thei
   - `flask`
   - `langid` 1.1.6
   - `nltk` 3.6.1
-  - `numpy` 1.18.0
+  - `numpy` 1.20.2
   - `pandas` 1.2.4
   - `Prophet library`
   - `requests` 2.25.1
@@ -96,7 +96,7 @@ We use a basic machine learning model from the prophet library to see how well p
 #### Final Model: Long Short-Term Memory Neural Network
 
 We built a LSTM model that could handle not only price datat over time, but also other market and social media features were were interested in.
-- LSTM: uses both market features and "buzz"/popularily features from reddit comments
+- LSTM: uses both market features and "buzz"/popularity features from reddit comments
 
 ### Dashboard
 
@@ -115,7 +115,7 @@ All group members belong to a discord server dedicated to this project.  There a
 
 ## Results
 
-#### Prophet Model
+### Prophet Model
 
 The goal was to create a machine learning model using facebook's prophet library in order to predict the price of bitcoin and some other altcoins. The way to go around this problem was to first extract the data from kaggle. Please, refer [here](https://www.kaggle.com/sudalairajkumar/cryptocurrencypricehistory?select=coin_Ethereum.csv). We used bitcoin, ethereum, and cardano's cryptocurrencies to store them in our database. Then, we extracted the data to the jupyter notebooks to run the models The raw data came in CSVs of 10 columns and as many rows as days of lifetime for each coin. For example, Bitcoins csv file looked like this: 
 
@@ -185,6 +185,74 @@ As a first approach to this project, we wanted to somewhat explore the data and 
 
 
 
-#### Neural Network Model
+### LSTM Neural Network Model
 
-SciKitLearn is the ML library we'll be using to create a classifier.  A function to automate data processing and model training exists, but the time aspect of implementation is still a work in progress.
+#### Model Choice
+
+We needed a model that could handle the time aspect of price changes while incorporating far more features than the prophet model limited us to.  A Long Short-Term Memory model seemed like the obvious choice.  Although this model would take longer to train than a random forest (for example), it was able to consider a time window’s worth of data to make a decision on the future price.  Furthermore, this type of model is designed for handling data with a time component.  The model choice did not change between sections 2 and 3.  This is a regression model, not a classification model, so there is no confusion matrix.  The accurary score was always zero, because the model almost nerver perfectly predicted the next day's price.
+
+#### Features
+
+For feature engineering, see the pre-processing and post-processing sections above.  Our exploratory analysis had shown that market behavior alone is not produce a good predictive model.  For this model, we chose to retest the market possibility with more market data (e.g. volume traded).  We also want to see if how a coin is talked about on social media affects its price.  Finally, we think that the best model would be one that incorporated both price and market data.  The features under these categories are as follows:
+
+- Market Features
+   - Opening price
+   - High price for the day
+   - Low price for the day
+   - Volume traded
+
+- Reddit Features
+   - Number of posts
+   - Average number of comments per post
+   - Average score per post
+   - Average compound sentiment score
+
+The target for the LSTM models was the closing price.
+
+
+#### Training and Testing
+
+The model required consecutive data to make predictions, so the earliest 75% of the data was used as the training set, and the latest 25% of the data was used at the test set.  For both training and test sets, the time window for the prediction was 7 days, and the model would predict the price on the 8th day.  The model was trained for 300 epochs.
+
+#### LSTM Results
+#### Loss graphs
+The decreases in loss overtime for each model can be found in the [lstm/images folder](Machine_Learning/lstm/images).
+
+##### Overview for each plot
+
+The figures below depict the outcomes of long short-term memory neural networks.  Each figure title names one or more feature sets used the future closing prices for a cryptocurrency. See Features for the individual features in each featire set.  Each graph shows the actual price value plotted against the predicted value. Dots on the red line (slope = 1) are cases where the prediction matched the real value. Dots above the line are cases where the actual price was higher than predicted. Dots below the line are cases where the actual price was lower than predicted.
+
+##### Figure x: Bitcoin future closing price predicted with Market Features
+![figure x](Machine_Learning/lstm/images/Actual_vs_Predictions_Bitcoin_just_market.svg)
+
+##### Figure x: Bitcoin future closing price predicted with Reddit Features
+![figure x](Machine_Learning/lstm/images/Actual_vs_Predictions_Bitcoin_just_reddit.svg)
+
+##### Figure x: Bitcoin future closing price predicted with Market Features and Reddit Features
+![figure x](Machine_Learning/lstm/images/Actual_vs_Predictions_Bitcoin_all_data.svg)
+
+##### Figure x: Cardano future closing price predicted with Market Features
+![figure x](Machine_Learning/lstm/images/Actual_vs_Predictions_Cardano_just_market.svg)
+
+##### Figure x: Cardano future closing price predicted with Reddit Features
+![figure x](Machine_Learning/lstm/images/Actual_vs_Predictions_Cardano_just_reddit.svg)
+
+##### Figure x: Cardano future closing price predicted with Market Features and Reddit Features
+![figure x](Machine_Learning/lstm/images/Actual_vs_Predictions_Cardano_all_data.svg)
+
+##### Figure x: Ethereum future closing price predicted with Market Features
+![figure x](Machine_Learning/lstm/images/Actual_vs_Predictions_Ethereum_just_market.svg)
+
+##### Figure x: Ethereum future closing price predicted with Reddit Features
+![figure x](Machine_Learning/lstm/images/Actual_vs_Predictions_Ethereum_just_reddit.svg)
+
+##### Figure x: Ethereum future closing price predicted with Market Features and Reddit Features
+![figure x](Machine_Learning/lstm/images/Actual_vs_Predictions_Ethereum_all_data.svg)
+
+## Summary
+
+### Conclusions
+
+### What we would implement in the future
+
+### Things we would have done differently if we had to do this project again
