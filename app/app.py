@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request,redirect, url_for
 from joblib import load
-from functions import make_picture, user_input_np_arr
+# from functions import make_picture, user_input_np_arr
 # from variables import *
 from sqlalchemy import Table, MetaData, create_engine
 from flask_sqlalchemy import SQLAlchemy
@@ -41,14 +41,14 @@ def Welcome():
         return redirect(url_for("url_param",param=url_param))
 
 
-@app.route("/<param>")
-def url_param(param):
-    request_type = request.method
-    if request_type == 'GET':
-        return render_template('index.html')  
-    if request_type == 'POST':
-        url_param = request.form["url"]
-        return redirect(url_for("url_param",param=url_param))
+# @app.route("/<param>")
+# def url_param(param):
+#     request_type = request.method
+#     if request_type == 'GET':
+#         return render_template('index.html')  
+#     if request_type == 'POST':
+#         url_param = request.form["url"]
+#         return redirect(url_for("url_param",param=url_param))
 
 @app.route("/test_model")
 def test_model():
