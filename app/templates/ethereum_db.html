@@ -5,7 +5,7 @@
 
 {% block content %}
 <div class="wrapper">
-    <div class="jumbotron">
+    <div class="jumbotron-eth">
         <h1 class="display-4"> Ethereum Kaggle Database </h1>
       </div>
       <div class="container-fluid">
@@ -14,9 +14,9 @@
                 <h3> Postgresql <small> Ethereum Data_Table </small></h3>
             </div>
             <div class="col-md-8">
-              <h4>
+              <p>
                 Our initial data source for testing was the from Cryptocurrency Historical Prices Kaggle.  This set was very clean, so the only processing it required was explicitly typing the data.  We uploaded the explicitly typed dataset into a PostgreSQL database and hosted it via AWS.
-              </h4>
+              </p>
             </div>
         </div>
       </div>  
@@ -24,6 +24,7 @@
     <div class="container-fluid btn-dark">
         <div class="row">
           <div class="col-md-3">
+            <img src = "static/images/ethereum_logo.jpeg" class="model-image" />
             <!-- <form class ="btn-dark">
                 <p>Filter Search</p>
                 <ul class="list-group btn-dark">

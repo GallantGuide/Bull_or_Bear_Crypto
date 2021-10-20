@@ -15,7 +15,7 @@ import os
 app = Flask(__name__)
 
 db_path = os.getenv('DATABASE_URL')
-# db_path = 'postgresql://postgres:umiami17@crypto.cbzxnt6iwq2t.us-east-2.rds.amazonaws.com:5432/postgres'
+
 
 # App connector and Table Data for DB Pulls
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
