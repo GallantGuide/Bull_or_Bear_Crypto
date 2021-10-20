@@ -6,7 +6,7 @@
 
 ### Topic
 
-We are interested in analyzing what factors are correlated with the prices of cryptocurrencies over time, and whether these factors can be used to predict the future prices of these currencies.
+We are interested in analyzing what factors are correlated with the cryptocurrency prices over time, and whether these factors can be used to predict the future currencies prices.
 
 ### Justification
 
@@ -17,19 +17,19 @@ Cryptocurrencies are of great interest to the finance community right now.  Thei
 -	[Kaggle Cryptocurrency Dataset]( https://www.kaggle.com/sudalairajkumar/cryptocurrencypricehistory) (coin prices over time)
 -	Yahoo Finance (stock trends over time) - [web-scraper](web_scraping/load/Yahoo_Finance_Scraper.py)
 -	Reddit (posts) - [api-caller](web_scraping/load/Reddit_API_Caller.py)
--	Twitter (posts) - [api-caller](web_scraping/load/Twitter_API_Caller.py)
+-	Twitter (posts) - [api-caller](web_scraping/load/Twitter_API_Caller.py)*
+* Twitter data is not used in the final model, because it was too costly to access Twitter's archival API to get all of the data we needed for this project in a month.
 
 ### Target Questions
 
-- Is cryptocurrency behavior correlated between different coins?  I.e. Do they all increase and decrease together?
 - What predicts cryptocurrency behavior?
-  - Overall market behavior
-  - Behavior of commodities (e.g. Gold)
+  - Past currency behavior?
   - Posts about the currencies on social media (e.g. reddit and twitter)
 - How far into the future are predictions about cryptocurrency behavior accurate?
 
-### Presentation
-[Google Slides Presentation](https://docs.google.com/presentation/d/1qu0JbQYSA0umzOtQzQflVEVPWwJOPFtdg98poT5wJQE)
+### External Resources
+- [Live Project](https://bull-or-bear-crypto.herokuapp.com)
+- [Google Slides Presentation](https://docs.google.com/presentation/d/1qu0JbQYSA0umzOtQzQflVEVPWwJOPFtdg98poT5wJQE)
 
 
 ## Project Implementation
@@ -39,50 +39,42 @@ Cryptocurrencies are of great interest to the finance community right now.  Thei
 - `SQL`
 - `MongoDB`
 - `Python`
-  - `Prophet library`
-  - `pandas` 1.2.4
-  - `requests` 2.25.1
+  - `os`, `sys`, `time`
+  - `bs4` 4.9.3
   - `langid` 1.1.6
   - `nltk` 3.6.1
-  - `splinter` 0.15.0
-  - `bs4` 4.9.3
-  - `webdriver_manager` 3.4.1
+  - `numpy` 1.18.0
+  - `pandas` 1.2.4
+  - `Prophet library`
+  - `requests` 2.25.1
   - `sklearn` 0.24.1
+  - `splinter` 0.15.0
   - `tensorflow` 2.6.0
-  - `os`, `sys`, `time`
-
+  - `webdriver_manager` 3.4.1
+ 
 ### Communication Protocols
 
-All group members belong to a discord server dedicated to this project.  There are text channels dedicated to all aspects of the project (e.g. machine-learning and database channels), as well as channels for resources and error handling.  Additionally, there are voice channels that allow group members to talk through problems live.  Discord offers screen sharing so group members can present their code.  Finally, we created a bot that announces when changes are made to the repository, so all members are informed as changes are pushed.  As a backup, all group members have exchanged phone numbers and email.
+All group members belong to a discord server dedicated to this project.  There are text channels dedicated to all aspects of the project (e.g. machine-learning and database channels), as well as channels for resources and error handling.  Additionally, there are voice channels that allow group members to talk through problems live.  Discord offers screen sharing, so group members can present their code or other works-in-progress.  Finally, we created a bot that announces when changes are made to the repository, so all members are informed as changes are pushed.  As a backup, all group members have exchanged phone numbers and email.
 
 ### Resources
 
 #### Pre-processing
 
-All preprocessing is done in Python.
-- The Kaggle data is clean and required no preprocessing.
+All preprocessing was done in Python.
+- The Kaggle data are clean and required no pre-processing.
 - The Yahoo Finance data is scraped from Yahoo Finance in groups of 100.  These groups are then combined and sorted by date.  No other processing is required.
-- For the Reddit data, posts are pulled from an API.  Posts that are not in English (as identified by langid) are dropped.  Posts with duplicate titles are dropped.  Finally, the NLTK library is used to run a sentiment analysis on the post title and the sentiment data (positive, negative, neutral, composite) is added to each post.
-- For the Twitter data, posts are pulled from an API.  The API request only returns English results.  Desired features are pulled out of twitter.module.status objects into a list of generic objects.  The NLTK library is used to run a sentiment analysis on the post text and the sentiment data (positive, negative, neutral, composite) is added to each post.
+- For the Reddit posts, posts are pulled from an API.  Posts that are not in English (as identified by langid) are dropped.  Posts with duplicate titles are dropped.  Finally, the NLTK library is used to run a sentiment analysis on the post title and the sentiment data (positive, negative, neutral, composite) is added to each post.
 
 #### Post-processing
+- The Kaggle data are model-ready and required no post-processing.
+- The Yahoo Finance data are model-ready and required no post-processing.
+- The Reddit posts are sorted into bins by date.  For each date, the number of posts was summed, and the average number of comments per post, compound post sentiment, and post score are calculated.
+For the LSTM model, Yahoo Finance data (left) and Reddit posts (right) are left joined on date.  For any date which had Yahoo Finance data, but did not have Reddit posts, NANS are replaced with 0.  There are no cases where we had Reddit posts but no Yahoo Finance data.
 
-#### Analysis
-
-##### Exploratory
-
-We will check for correlations between various cryptocurrency prices.  We will also examine the correlations between individual currency prices and other features like how much a currency is talked about on social media or other market trends.
-
-##### Machine learning
-
-We are using a series of machine learning models to predict the future behavior of cryptocurrencies.  See the machine learning section below for more imdept information.  The models include:
-
-- Prophet: uses time and price information to predict future prices
-- Neural Network: uses a large number of features which may include time, prices of cryptocurrencies, prices of other market factors (e.g. the S&P500 or commodities), and “buzz” factors
 
 ### Database Storage
 
-PostgreSQL will be used to store the data from Kaggle and Yahoo Finance ([SQL Schema](Sql/Schema/schema.sql)). Currently, we are using [csvs](Sql/Resources) for setting up the analysis pipeline. MongoDB will be used to store document-based data including Reddit and Twitter posts.
+PostgreSQL is used to store the data from Kaggle and Yahoo Finance ([SQL Schema](Sql/Schema/schema.sql)). MongoDB is used to store the Reddit posts.
 
 ![SQL schema](https://github.com/CaptCarmine/Bull_or_Bear_Crypto/blob/main/images/SQL_Schema.png?raw=true)  
 
@@ -90,6 +82,18 @@ PostgreSQL will be used to store the data from Kaggle and Yahoo Finance ([SQL Sc
 
 To proceed with the machine learning models, we used SQLAlchemy to connect to the database and extract the Kaggle datasets for Bitcoin, Ethereum, and Cardano. This part of the project can be seen in the [DB_Connection&DataExctraction.ipynb](https://github.com/CaptCarmine/Bull_or_Bear_Crypto/blob/ML_Model/Machine_Learning/DB_Connection%26DataExtraction.ipynb). We created an engine and a session to then query all the data we needed. Moreover, we converted it into a dataframe and exported it into the data folder. The resulting tables were the BTC.csv, ETH.csv, and ADA.csv.  
 
+
+#### Analysis
+
+##### Exploratory Model: Prophet Model
+
+We use a basic machine learning model from the prophet library to see how well price data over time alone can predict future prices and how ar in the future the predictions appear to be accurate.
+- Prophet: uses time and price information to predict future prices
+
+##### Final Model: Long Short-Term Memory Neural Network
+
+We built a LSTM model that could handle not only price datat over time, but also other market and social media features were were interested in.
+- LSTM: uses both market features and "buzz"/popularily features from reddit comments
 
 ### Machine Learning
 
